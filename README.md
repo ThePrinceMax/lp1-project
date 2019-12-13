@@ -45,13 +45,12 @@ Lp1ProjectApplication.main()
 En tant que méthode lancée en "Standalone", qui va lancer le serveur intégré Tomcat sur le port 8080.
 
 Après cela, il suffira de vous rendre à l'aide de votre client Web sur l'url suivante : 
-```
-http://localhost:8080/app/
-```
+
+[http://localhost:8080/app/api/](http://localhost:8080/app/api/)
 
 ```/app``` correspond à la route sur laquelle l'application est publiée.
 
-L'API quant à elle est publiée à l'adresse : ```/app/api```.
+Quant à elle, l'API est publiée à l'adresse : ```/app/api```.
 
 Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
 
