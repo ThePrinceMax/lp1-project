@@ -54,6 +54,7 @@ Une fois la base de données renseignée et l'application lancée, cette derniè
 ## Technologies utilisées
 
 Ce Projet Maven est basé sur : 
+- Apache Tomcat
 - Spring
 - JPA / Hibernate avec MySQL Connector
 - Jersey
