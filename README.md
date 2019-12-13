@@ -100,11 +100,11 @@ Voici l'arborescence de l'application :
 	}
 	```
 
-- Colocation
+- Colocations
   - GET ```/colocs``` : Liste toutes les colocations et leurs informations.
   - GET ```/colocs/{id}``` : Affiche les informations d'une colocation en fonction de son ID.
   - POST ```/colocs``` : Ajoute une colocation. 
-  	<br/>__Réponse__ (JSON) : Renvoie l'colocation ajouté.
+  	<br/>__Réponse__ (JSON) : Renvoie la colocation ajoutée.
   	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
 	```json
 	{
@@ -112,7 +112,7 @@ Voici l'arborescence de l'application :
 	}
 	```
   - PUT ```/colocs/{id}``` : Modifie les informations d'une colocation en fonction de son ID.
-	<br/>__Réponse__ (JSON) : Renvoie la colocation modifié.
+	<br/>__Réponse__ (JSON) : Renvoie la colocation modifiée.
   	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
 	```json
 	{
