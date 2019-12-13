@@ -99,3 +99,30 @@ Voici l'arborescence de l'application :
     	"deleted": true
 	}
 	```
+
+- Colocation
+  - GET ```/colocs``` : Liste toutes les colocations et leurs informations.
+  - GET ```/colocs/{id}``` : Affiche les informations d'une colocation en fonction de son ID.
+  - POST ```/colocs``` : Ajoute une colocation. 
+  	<br/>__Réponse__ (JSON) : Renvoie l'colocation ajouté.
+  	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
+	```json
+	{
+		"name": "Maxime", //Obligatoire
+	}
+	```
+  - PUT ```/colocs/{id}``` : Modifie les informations d'une colocation en fonction de son ID.
+	<br/>__Réponse__ (JSON) : Renvoie la colocation modifié.
+  	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
+	```json
+	{
+		"name": "Maxime", //Optionnel
+	}
+	```
+  - DELETE ```/colocs/{id}``` : Supprime une colocation en fonction de son ID. 
+  	<br/>__Réponse__ (JSON) : Renvoie un boolean confirmant sa suppression.
+	```json
+	{
+    	"deleted": true
+	}
+	```
