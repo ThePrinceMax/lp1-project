@@ -70,16 +70,16 @@ Voici l'arborescence de l'application :
 - ```/api```
 
 - Users
-  - GET ```/users``` : Lister tous les utilisateurs et leurs informations.
-  - GET ```/users/{id}``` : Afficher les informations d'un utilisateur en fonction de son ID.
-  - POST ```/users``` : Ajouter un utilisateur. 
+  - GET ```/users``` : Liste tous les utilisateurs et leurs informations.
+  - GET ```/users/{id}``` : Affiche les informations d'un utilisateur en fonction de son ID.
+  - POST ```/users``` : Ajoute un utilisateur. 
   	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur ajouté.
   	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
 	```json
 	{
-		"firstName": "Maxime", // Obligatoire
-		"lastName": "Princelle", // Obligatoire
-		"emailId": "contact@princelle.org" // Obligatoire
+		"firstName": "Maxime", //Obligatoire
+		"lastName": "Princelle", //Obligatoire
+		"emailId": "contact@princelle.org" //Obligatoire
 	}
 	```
   - PUT ```/users/{id}``` : Modifie les informations d'un utilisateur en fonction de son ID.
@@ -87,9 +87,9 @@ Voici l'arborescence de l'application :
   	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
 	```json
 	{
-		"firstName": "Maxime", // Optionnel
-		"lastName": "Princelle", // Optionnel
-		"emailId": "contact-maxime@princelle.org" // Optionnel
+		"firstName": "Maxime", //Optionnel
+		"lastName": "Princelle", //Optionnel
+		"emailId": "contact-maxime@princelle.org" //Optionnel
 	}
 	```
   - DELETE ```/users/{id}``` : Supprime un utilisateur en fonction de son ID. 
