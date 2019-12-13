@@ -124,7 +124,7 @@ Voici l'arborescence de l'application :
 
 ## Technologies utilisées
 
-Ce Projet Maven est basé sur : 
+Ce projet Maven est basé sur : 
 - Apache Tomcat
 - Spring
 - JPA / Hibernate avec MySQL Connector
