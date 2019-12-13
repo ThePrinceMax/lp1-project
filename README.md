@@ -28,6 +28,8 @@ http://localhost:8080/app/
 
 ```/app``` correspond à la route sur laquelle l'application est publiée.
 
+L'API quant à elle est publiée à l'adresse : ```/app/api```.
+
 Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
 
 ## Configuration
@@ -63,11 +65,9 @@ Ce Projet Maven est basé sur :
 
 ## Routes
 
-Comme dit précédemment, ```/app``` correspond à la route sur laquelle l'application est publiée.
+Comme dit précédemment, ```/app/api``` correspond à la route sur laquelle l'API est publiée.
 
 Voici l'arborescence de l'application : 
-
-- ```/api```
 
 - Users
   - GET ```/users``` : Liste tous les utilisateurs et leurs informations.
