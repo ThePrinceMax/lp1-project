@@ -108,7 +108,7 @@ Voici l'arborescence de l'application :
   	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
 	```json
 	{
-		"name": "Maxime", //Obligatoire
+		"name": "L'équipeDe@W.", //Obligatoire
 	}
 	```
   - PUT ```/colocs/{id}``` : Modifie les informations d'une colocation en fonction de son ID.
@@ -116,7 +116,7 @@ Voici l'arborescence de l'application :
   	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
 	```json
 	{
-		"name": "Maxime", //Optionnel
+		"name": "L'équipeDe@H.", //Optionnel
 	}
 	```
   - DELETE ```/colocs/{id}``` : Supprime une colocation en fonction de son ID. 
