@@ -4,7 +4,7 @@ Créé par : [Maxime Princelle](https://princelle.org)
 
 [Lien vers le sujet](https://docs.google.com/document/d/1O9Cfxe6QZ-yc6G4GovpEqzZk6cyP_nfo3nQCdmnhhQA/edit)
 
-## Lancement de l'application
+## Lancement
 
 Nous pouvons lancer l'application de deux manières différentes.
 
@@ -28,7 +28,9 @@ http://localhost:8080/app/
 
 ```/app``` correspond à la route sur laquelle l'application est publiée.
 
-## Configuration de l'application
+Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
+
+## Configuration
 
 La configuration de l'application, se déroule dans le fichier ```application.properties``` situé dans ```/src/main/resources/```
 
@@ -59,3 +61,41 @@ Ce Projet Maven est basé sur :
 - JPA / Hibernate avec MySQL Connector
 - Jersey
 
+## Routes
+
+Comme dit précédemment, ```/app``` correspond à la route sur laquelle l'application est publiée.
+
+Voici l'arborescence de l'application : 
+
+- ```/api```
+
+- Users
+  - GET ```/users``` : Lister tous les utilisateurs et leurs informations.
+  - GET ```/users/{id}``` : Afficher les informations d'un utilisateur en fonction de son ID.
+  - POST ```/users``` : Ajouter un utilisateur. 
+  	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur ajouté.
+  	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
+	```json
+	{
+		"firstName": "Maxime", // Obligatoire
+		"lastName": "Princelle", // Obligatoire
+		"emailId": "contact@princelle.org" // Obligatoire
+	}
+	```
+  - PUT ```/users/{id}``` : Modifie les informations d'un utilisateur en fonction de son ID.
+	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur modifié.
+  	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
+	```json
+	{
+		"firstName": "Maxime", // Optionnel
+		"lastName": "Princelle", // Optionnel
+		"emailId": "contact-maxime@princelle.org" // Optionnel
+	}
+	```
+  - DELETE ```/users/{id}``` : Supprime un utilisateur en fonction de son ID. 
+  	<br/>__Réponse__ (JSON) : Renvoie un boolean confirmant sa suppression.
+	```json
+	{
+    	"deleted": true
+	}
+	```
