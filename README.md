@@ -28,6 +28,29 @@ http://localhost:8080/app/
 
 ```/app``` correspond à la route sur laquelle l'application est publiée.
 
+## Configuration de l'application
+
+La configuration de l'application, se déroule dans le fichier ```application.properties``` situé dans ```/src/main/resources/```
+
+[Lien vers le fichier](src/main/resources/application.properties)
+
+Dans ce fichier, vous pouvez configurer la connexion à votre base de données.
+
+Voici un exemple avec la configuration suivante : 
+- Adresse : localhost
+- Port : 3306
+- Base : "lp1Projet"
+- Username : "root"
+- Password : "flatflat"
+
+```
+spring.datasource.url = jdbc:mysql://localhost:3306/lp1Projet?useSSL=false
+spring.datasource.username = root
+spring.datasource.password = flatflat
+```
+
+Une fois la base de données renseignée et l'application lancée, cette dernière, via Hibernate, va générer tout ce qui est nécessaire à son fonctionnement.
+
 ## Technologies utilisées
 
 Ce Projet Maven est basé sur : 
