@@ -8,7 +8,7 @@ import org.princelle.lp1project.Routes.UserResource;
 import org.springframework.stereotype.Component;
 
 @Component
-@ApplicationPath("/app")
+@ApplicationPath("/")
 public class JerseyConfiguration extends ResourceConfig {
 	public JerseyConfiguration() {
 		register(UserResource.class);

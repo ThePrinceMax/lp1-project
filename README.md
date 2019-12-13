@@ -46,25 +46,15 @@ En tant que méthode lancée en "Standalone", qui va lancer le serveur intégré
 
 Après cela, il suffira de vous rendre à l'aide de votre client Web sur l'url suivante : 
 
-[http://localhost:8080/app/api/](http://localhost:8080/app/api/)
+[http://localhost:8080/api/](http://localhost:8080/api/)
 
-```/app``` correspond à la route sur laquelle l'application est publiée.
-
-Quant à elle, l'API est publiée à l'adresse : ```/app/api```.
+```/api``` correspond à la route sur laquelle l'API est publiée.
 
 Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
 
-## Technologies utilisées
-
-Ce Projet Maven est basé sur : 
-- Apache Tomcat
-- Spring
-- JPA / Hibernate avec MySQL Connector
-- Jersey
-
 ## Routes
 
-Comme dit précédemment, ```/app/api``` correspond à la route sur laquelle l'API est publiée.
+Comme dit précédemment, ```/api``` correspond à la route sur laquelle l'API est publiée.
 
 Voici l'arborescence de l'application : 
 
@@ -125,3 +115,11 @@ Voici l'arborescence de l'application :
     	"deleted": true
 	}
 	```
+
+## Technologies utilisées
+
+Ce Projet Maven est basé sur : 
+- Apache Tomcat
+- Spring
+- JPA / Hibernate avec MySQL Connector
+- Jersey
