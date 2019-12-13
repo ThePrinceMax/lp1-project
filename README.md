@@ -8,7 +8,7 @@ __Sommaire__
 - <a href="#configuration">Configuration</a>
 - <a href="#lancement">Lancement</a>
 - <a href="#routes">Routes</a>
-- <a href="#technologies-utilisées">Technologies utilisées</a>
+- <a href="#technologies-utilis%C3%A9es">Technologies utilisées</a>
 
 ## Configuration
 
