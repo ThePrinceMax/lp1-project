@@ -24,6 +24,17 @@ public class User {
 	@Column(name = "email_address", nullable = false)
 	private String emailId;
 
+	@Column(name = "password", nullable = false)
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public long getId() {
 		return id;
 	}
