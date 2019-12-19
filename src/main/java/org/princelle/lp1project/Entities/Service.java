@@ -24,11 +24,11 @@ public class Service {
 	@Column(name = "proposed", nullable = false)
 	private Boolean proposed;
 
-	@OneToOne
+	@OneToOne(targetEntity = AchievedService.class)
 	@JoinColumn(name = "achieved", nullable = false)
 	private AchievedService achieved;
 
-	@ManyToOne
+	@ManyToOne(targetEntity = Colocation.class)
 	@JoinColumn(name = "coloc", nullable = false)
 	private Colocation coloc;
 
