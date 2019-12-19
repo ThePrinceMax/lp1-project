@@ -1,9 +1,6 @@
 package org.princelle.lp1project.Entities;
 
-import org.princelle.lp1project.Entities.*;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
