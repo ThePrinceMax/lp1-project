@@ -3,9 +3,7 @@ package org.princelle.lp1project.Entities;
 import org.princelle.lp1project.Utils.StringUtils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "table_achievedservice")
