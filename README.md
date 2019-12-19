@@ -1,4 +1,4 @@
-# LP1 Projet
+# LP1 Project
 
 Créé par : [Maxime Princelle](https://princelle.org)
 
