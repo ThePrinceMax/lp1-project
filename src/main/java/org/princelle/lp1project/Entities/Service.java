@@ -19,7 +19,7 @@ public class Service {
 	private String description;
 
 	@Column(name = "cost", nullable = false)
-	private Float cost;
+	private Integer cost;
 
 	@Column(name = "proposed", nullable = false)
 	private Boolean proposed;
@@ -104,11 +104,11 @@ public class Service {
 		this.description = description;
 	}
 
-	public Float getCost() {
+	public Integer getCost() {
 		return cost;
 	}
 
-	public void setCost(Float cost) {
+	public void setCost(Integer cost) {
 		this.cost = cost;
 	}
 }
