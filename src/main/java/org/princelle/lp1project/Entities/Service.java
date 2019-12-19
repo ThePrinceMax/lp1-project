@@ -1,7 +1,5 @@
 package org.princelle.lp1project.Entities;
 
-import org.princelle.lp1project.Entities.User;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +21,71 @@ public class Service {
 	@Column(name = "cost", nullable = false)
 	private Float cost;
 
-	public long getId() {
-		return id;
+	@Column(name = "proposed", nullable = false)
+	private Boolean proposed;
+
+	@OneToOne
+	@JoinColumn(name = "achieved", nullable = false)
+	private AchievedService achieved;
+
+	@ManyToOne
+	@JoinColumn(name = "coloc", nullable = false)
+	private Colocation coloc;
+
+	@ManyToOne(targetEntity = Person.class)
+	@JoinColumn(name = "fromUser", nullable = false)
+	private Person fromPerson;
+
+	@ManyToOne(targetEntity = Person.class)
+	@JoinColumn(name = "toUser")
+	private List toPeople;
+
+	public Colocation getColoc() {
+		return coloc;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setColoc(Colocation coloc) {
+		this.coloc = coloc;
+	}
+
+	public AchievedService getAchieved() {
+		return achieved;
+	}
+
+	public void setAchieved(AchievedService achieved) {
+		this.achieved = achieved;
+	}
+
+	public Boolean getProposed() {
+		return proposed;
+	}
+
+	public void setProposed(Boolean proposed) {
+		this.proposed = proposed;
+	}
+
+	public Person getFromPerson() {
+		return fromPerson;
+	}
+
+	public void setFromPerson(Person fromPerson) {
+		this.fromPerson = fromPerson;
+	}
+
+	public List<Person> getToPeople() {
+		return toPeople;
+	}
+
+	public void setToPeople(ArrayList<Person> toPeople) {
+		this.toPeople = toPeople;
+	}
+
+	public void addToUsers(Person toUsers) {
+		this.toPeople.add(toUsers);
+	}
+
+	public void setToUsers(Person toUsers) {
+		this.toPeople.remove(toUsers);
 	}
 
 	public String getTitle() {

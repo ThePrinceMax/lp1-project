@@ -5,17 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
-import org.princelle.lp1project.Entities.User;
-import org.princelle.lp1project.Repositories.UserRepository;
+import org.princelle.lp1project.Entities.Person;
+import org.princelle.lp1project.Repositories.PersonRepository;
 import org.princelle.lp1project.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,25 +18,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
 @Path("/api")
-public class UserResource {
+public class PersonResource {
 
 	@Autowired
-	private UserRepository userRepository;
+	private PersonRepository personRepository;
 
 	@GET
 	@Produces("application/json")
 	@Path("/users")
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
+	public List<Person> getAllUsers() {
+		return personRepository.findAll();
 	}
 
 	@GET
 	@Produces("application/json")
 	@Path("/users/{id}")
-	public ResponseEntity<User> getUserById(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
-		User user = userRepository.findById(userId)
+	public ResponseEntity<Person> getUserById(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
+		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
-		return ResponseEntity.ok().body(user);
+		return ResponseEntity.ok().body(person);
 	}
 
 	@POST
@@ -51,43 +44,43 @@ public class UserResource {
 	@Consumes("application/json")
 	@Path("/users")
 	@PostMapping("/users")
-	public User createUser(User user) {
-		return userRepository.save(user);
+	public Person createUser(Person person) {
+		return personRepository.save(person);
 	}
 
 	@PUT
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/users/{id}")
-	public ResponseEntity<User> updateUser(@PathParam(value = "id") Long userId,
-										   @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
-		User user = userRepository.findById(userId)
+	public ResponseEntity<Person> updateUser(@PathParam(value = "id") Long userId,
+											 @Valid @RequestBody Person personDetails) throws ResourceNotFoundException {
+		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 
-		if (userDetails.getEmailId() != null){
-			user.setEmailId(userDetails.getEmailId());
+		if (personDetails.getEmailId() != null){
+			person.setEmailId(personDetails.getEmailId());
 		}
 
-		if (userDetails.getFirstName() != null){
-			user.setFirstName(userDetails.getFirstName());
+		if (personDetails.getFirstName() != null){
+			person.setFirstName(personDetails.getFirstName());
 		}
 
-		if (userDetails.getLastName() != null){
-			user.setLastName(userDetails.getLastName());
+		if (personDetails.getLastName() != null){
+			person.setLastName(personDetails.getLastName());
 		}
 
-		final User userEdited = userRepository.save(user);
-		return ResponseEntity.ok(userEdited);
+		final Person personEdited = personRepository.save(person);
+		return ResponseEntity.ok(personEdited);
 	}
 
 	@DELETE
 	@Produces("application/json")
 	@Path("/users/{id}")
 	public Map<String, Boolean> deleteUser(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
-		User user = userRepository.findById(userId)
+		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 
-		userRepository.delete(user);
+		personRepository.delete(person);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
