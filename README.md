@@ -132,4 +132,4 @@ Ce projet Maven est basé sur :
 
 ----
 
-<a href="#lp1-projet">Remonter en haut</a>
+<a href="#lp1-project">Remonter en haut</a>
