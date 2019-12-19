@@ -69,6 +69,10 @@ public class PersonResource {
 			person.setLastName(personDetails.getLastName());
 		}
 
+		if (personDetails.getScore() != null){
+			person.setScore(personDetails.getScore());
+		}
+
 		final Person personEdited = personRepository.save(person);
 		return ResponseEntity.ok(personEdited);
 	}
