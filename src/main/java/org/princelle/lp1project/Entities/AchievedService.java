@@ -10,8 +10,7 @@ import java.util.Date;
 public class AchievedService {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	private Date date;
