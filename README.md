@@ -10,6 +10,7 @@ __Sommaire__
 - <a href="#comment-y-acc%C3%A9der-">Comment y accéder ?</a>
 - <a href="#configuration">Configuration</a>
 - <a href="#lancement">Lancement</a>
+  - <a href="#docker">Docker</a>
 - <a href="#routes">Routes</a>
 - <a href="#technologies-utilis%C3%A9es">Technologies utilisées</a>
 
@@ -70,6 +71,62 @@ Après cela, il suffira de vous rendre à l'aide de votre client Web sur l'url s
 ```/api``` correspond à la route sur laquelle l'API est publiée.
 
 Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
+
+### Docker
+
+#### Configuration de l'environnement
+
+Si vous souhaitez démarrer cette application, ainsi que la base de données nécessaire à son fonctionnement, en une seule fois, un fichier docker-compose est mis à disposition. 
+
+Avec cette base de données vous est également fourni un environnement phpMyAdmin afin de faciliter la gestion de cette dernière.
+
+Pour commencer, veuillez copier le fichier `.env.example` et le renommer en `.env`.
+
+Une fois ouvert, vous obtiendrez le fichier suivant :
+
+```env
+# Application
+DATABASE_URL=mysql://${DATABASE_HOST}:3306/${MYSQL_DATABASE}
+DATABASE_USER=${MYSQL_USER}
+DATABASE_PASS=${MYSQL_PASSWORD}
+DATABASE_HOST=lp1-mysql
+
+# MySQL
+MYSQL_DATABASE=lp1Project
+MYSQL_ROOT_PASSWORD=__db_root_pass__
+MYSQL_USER=__db_user__
+MYSQL_PASSWORD=__db_pass__
+```
+
+Pour changer les identifiants de connexion à la base de données, vous pouvez changer les trois derniers champs : 
+
+- `__db_root_pass__`
+- `__db_user__`
+- `__db_pass__`
+
+Pour finir, enregistrez votre fichier `.env` à la racine du projet.
+
+#### Lancement de l'environnement
+
+Afin de lancer l'environnement, exécutez la commande suivante : 
+
+```docker-compose up -d```
+
+##### API
+
+Une fois fait, l'API sera déployée à l'adresse : 
+
+[http://localhost:8080/api/](http://localhost:8080/api/)
+
+```/api``` correspond à la route sur laquelle l'API est publiée.
+
+Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
+
+##### phpMyAdmin
+
+Pour accéder à phpMyAdmin, ce dernier se trouve sur le port 8084, vous pouvez y accédez via le lien suivant : 
+
+[http://localhost:8084/](http://localhost:8084/)
 
 ## Routes
 

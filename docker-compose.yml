@@ -17,11 +17,10 @@ services:
 
   lp1-mysql:
     container_name: lp1-mysql
-    image: mysql/mysql-server:5.7
+    image: mysql:5.7
     env_file:
       - .env
     volumes:
-      - "./db/dump:/docker-entrypoint-initdb.d"
       - "./db/mysql:/var/lib/mysql"
     ports:
       - "3309:3306"
@@ -30,7 +29,7 @@ services:
   lp1-app:
     container_name: lp1-app
     restart: unless-stopped
-    build: .
+    image: maven:3-jdk-8-openj9
     working_dir: /app
     volumes:
       - .:/app
