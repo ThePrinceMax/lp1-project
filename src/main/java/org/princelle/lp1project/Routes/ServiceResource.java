@@ -56,16 +56,24 @@ public class ServiceResource {
 		Service service = serviceRepository.findById(serviceId)
 				.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + serviceId));
 
-		if (ServiceDetails.getTitle() != null){
-			service.setTitle(ServiceDetails.getTitle());
-		}
+		if (service.isAchieved()) { // If Service is achieved, do not edit !
+			return ResponseEntity.ok(service);
+		} else {
+			if (ServiceDetails.getTitle() != null){
+				service.setTitle(ServiceDetails.getTitle());
+			}
 
-		if (ServiceDetails.getDescription() != null){
-			service.setDescription(ServiceDetails.getDescription());
-		}
+			if (ServiceDetails.getDescription() != null){
+				service.setDescription(ServiceDetails.getDescription());
+			}
 
-		if (ServiceDetails.getCost() != null){
-			service.setCost(ServiceDetails.getCost());
+			if (ServiceDetails.getCost() != null){
+				service.setCost(ServiceDetails.getCost());
+			}
+
+			if (ServiceDetails.getProposed()) {
+				service.setProposed(ServiceDetails.getProposed());
+			}
 		}
 
 		final Service ServiceEdited = serviceRepository.save(service);

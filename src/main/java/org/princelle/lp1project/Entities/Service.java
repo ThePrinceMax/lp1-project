@@ -1,5 +1,7 @@
 package org.princelle.lp1project.Entities;
 
+import org.princelle.lp1project.Utils.StringUtils;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Service {
 	private Integer cost;
 
 	@Column(name = "proposed", nullable = false)
-	private Boolean proposed;
+	private Boolean proposed = false;
 
 	@OneToOne(targetEntity = AchievedService.class)
 	@JoinColumn(name = "achieved", nullable = false)
@@ -58,6 +60,13 @@ public class Service {
 
 	public void setAchieved(AchievedService achieved) {
 		this.achieved = achieved;
+	}
+
+	public boolean isAchieved() {
+		if (this.achieved != null) {
+			return true;
+		}
+		return false;
 	}
 
 	public Boolean getProposed() {
