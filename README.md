@@ -1,14 +1,27 @@
 # LP1 Project
 
+Oui, vous avez bien lu. Une simple API, en Java. (En cours de développement, pas encore en ligne)
+
 Créé par : [Maxime Princelle](https://princelle.org)
 
 [Lien vers le sujet](https://docs.google.com/document/d/1O9Cfxe6QZ-yc6G4GovpEqzZk6cyP_nfo3nQCdmnhhQA/edit)
 
 __Sommaire__
+- <a href="#configuration">Comment y accéder ?</a>
 - <a href="#configuration">Configuration</a>
 - <a href="#lancement">Lancement</a>
 - <a href="#routes">Routes</a>
 - <a href="#technologies-utilis%C3%A9es">Technologies utilisées</a>
+
+## Comment y accéder ?
+
+__Projet encore en cours de développement...__
+
+L'API sera, quand elle sera terminée, accessible via ce lien : 
+
+[https://lp1.princelle.org/api](https://lp1.princelle.org/api)
+
+Pour plus d'informations sur les routes, je vous invite à vous rendre <a href="#routes">ici</a>.
 
 ## Configuration
 
