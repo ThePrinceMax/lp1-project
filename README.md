@@ -7,7 +7,7 @@ Créé par : [Maxime Princelle](https://princelle.org)
 [Lien vers le sujet](https://docs.google.com/document/d/1O9Cfxe6QZ-yc6G4GovpEqzZk6cyP_nfo3nQCdmnhhQA/edit)
 
 __Sommaire__
-- <a href="#comment-y-acc%C3%A9der">Comment y accéder ?</a>
+- <a href="#comment-y-acc%C3%A9der-">Comment y accéder ?</a>
 - <a href="#configuration">Configuration</a>
 - <a href="#lancement">Lancement</a>
 - <a href="#routes">Routes</a>
