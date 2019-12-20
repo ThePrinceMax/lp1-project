@@ -8,15 +8,15 @@ import java.util.List;
 public class Colocation {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 
 	@OneToMany(targetEntity = Person.class)
-	@JoinColumn(name = "people")
-	private List people;
+	@JoinColumn(name = "member")
+	private List member;
 
 	public long getId() {
 		return id;
@@ -27,19 +27,19 @@ public class Colocation {
 	}
 
 	public List<Person> getPeople() {
-		return people;
+		return member;
 	}
 
 	public void setPeople(List<Person> people) {
-		this.people = people;
+		this.member = people;
 	}
 
 	public void addPeople(Person person) {
-		this.people.add(person);
+		this.member.add(person);
 	}
 
 	public void deletePeople(Person person) {
-		this.people.remove(person);
+		this.member.remove(person);
 	}
 
 	public String getName() {
