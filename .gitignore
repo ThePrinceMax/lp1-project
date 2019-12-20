@@ -59,6 +59,6 @@ Temporary Items
 .apdisk
 
 # Docker generated files
-./db/
+db/
 
 .env
