@@ -40,13 +40,9 @@ public class Service {
 	@JoinColumn(name = "toUser")
 	private List toPeople;
 
-	public long getId() {
-		return id;
-	}
+	public long getId() { return id; }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	public void setId(int id) { this.id = id; }
 
 	public Colocation getColoc() {
 		return coloc;

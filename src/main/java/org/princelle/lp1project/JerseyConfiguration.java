@@ -28,7 +28,7 @@ public class JerseyConfiguration extends ResourceConfig {
 		// Loading each classes from BeanDefinition instance
 		for (BeanDefinition bean: classes) {
 			Class<?> the_class = Class.forName(bean.getBeanClassName());
-			register(the_class); // Register the class for JerseyConfiguration
+			register(the_class); // Register the Resource class for JerseyConfiguration
 		}
 	}
 }
