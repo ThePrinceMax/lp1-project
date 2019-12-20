@@ -18,6 +18,14 @@ public class Colocation {
 	@JoinColumn(name = "people")
 	private List people;
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public List<Person> getPeople() {
 		return people;
 	}
@@ -26,11 +34,11 @@ public class Colocation {
 		this.people = people;
 	}
 
-	public void addUsers(Person person) {
+	public void addPeople(Person person) {
 		this.people.add(person);
 	}
 
-	public void deleteUsers(Person person) {
+	public void deletePeople(Person person) {
 		this.people.remove(person);
 	}
 

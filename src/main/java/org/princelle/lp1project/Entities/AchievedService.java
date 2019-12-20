@@ -21,6 +21,14 @@ public class AchievedService {
 	private boolean validTo;
 	private boolean validFrom;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Date getDate() {
 		return this.date;
 	}

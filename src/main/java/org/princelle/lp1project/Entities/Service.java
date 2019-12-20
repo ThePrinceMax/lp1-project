@@ -40,6 +40,14 @@ public class Service {
 	@JoinColumn(name = "toUser")
 	private List toPeople;
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Colocation getColoc() {
 		return coloc;
 	}
@@ -80,11 +88,11 @@ public class Service {
 		this.toPeople = toPeople;
 	}
 
-	public void addToUsers(Person toUsers) {
+	public void addToPeople(Person toUsers) {
 		this.toPeople.add(toUsers);
 	}
 
-	public void setToUsers(Person toUsers) {
+	public void setToPeople(Person toUsers) {
 		this.toPeople.remove(toUsers);
 	}
 

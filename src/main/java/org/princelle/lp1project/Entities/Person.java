@@ -8,6 +8,7 @@ public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false)
 	private long id;
 
 	@Column(name = "first_name", nullable = false)
@@ -24,6 +25,14 @@ public class Person {
 
 	@Column(name = "score", nullable = false)
 	private Integer score = 0;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public Integer getScore() {
 		return score;
