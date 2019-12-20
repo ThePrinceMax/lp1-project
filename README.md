@@ -74,7 +74,8 @@ Voici l'arborescence de l'application :
 	{
 		"firstName": "Maxime", //Obligatoire
 		"lastName": "Princelle", //Obligatoire
-		"emailId": "contact@princelle.org" //Obligatoire
+		"emailId": "contact@princelle.org", //Obligatoire
+		"password": "test1" //Obligatoire
 	}
 	```
   - PUT ```/users/{id}``` : Modifie les informations d'un utilisateur en fonction de son ID.
@@ -84,7 +85,8 @@ Voici l'arborescence de l'application :
 	{
 		"firstName": "Maxime", //Optionnel
 		"lastName": "Princelle", //Optionnel
-		"emailId": "contact-maxime@princelle.org" //Optionnel
+		"emailId": "contact-maxime@princelle.org", //Optionnel
+		"password": "test2" //Optionnel
 	}
 	```
   - DELETE ```/users/{id}``` : Supprime un utilisateur en fonction de son ID. 
