@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  lp1-phpmyadmin:
+    container_name: lp1-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - lp1-mysql
+    environment:
+      PMA_HOST: lp1-mysql
+      PMA_PORT: 3306
+    ports:
+      - "8084:80"
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  lp1-mysql:
+    container_name: lp1-mysql
+    image: mysql/mysql-server:5.7
+    env_file:
+      - .env
+    volumes:
+      - "./db/dump:/docker-entrypoint-initdb.d"
+      - "./db/mysql:/var/lib/mysql"
+    ports:
+      - "3309:3306"
+    restart: unless-stopped
+
+  lp1-app:
+    container_name: lp1-app
+    restart: unless-stopped
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    command: mvn clean spring-boot:run
+    depends_on:
+      - lp1-mysql

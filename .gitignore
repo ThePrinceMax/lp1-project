@@ -57,3 +57,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Docker generated files
+./db/
+
+.env
