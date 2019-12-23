@@ -1,4 +1,4 @@
-# LP1 Project
+# LP1 Project - API
 
 Oui, vous avez bien lu. Une simple API, en Java. (En cours de développement, pas encore en ligne)
 
