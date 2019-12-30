@@ -81,24 +81,28 @@ public class Service {
 		return fromPerson;
 	}
 
-	public void setFromPerson(Person fromPerson) {
+	public Person setFromPerson(Person fromPerson) {
 		this.fromPerson = fromPerson;
+		return this.fromPerson;
 	}
 
 	public List<Person> getToPeople() {
-		return toPeople;
+		return this.toPeople;
 	}
 
-	public void setToPeople(ArrayList<Person> toPeople) {
+	public List<Person> setToPeople(ArrayList<Person> toPeople) {
 		this.toPeople = toPeople;
+		return this.toPeople;
 	}
 
-	public void addToPeople(Person toUsers) {
+	public List<Person> addToPeople(Person toUsers) {
 		this.toPeople.add(toUsers);
+		return this.toPeople;
 	}
 
-	public void setToPeople(Person toUsers) {
+	public List<Person> removeToPeople(Person toUsers) {
 		this.toPeople.remove(toUsers);
+		return this.toPeople;
 	}
 
 	public String getTitle() {
