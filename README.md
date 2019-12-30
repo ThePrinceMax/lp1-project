@@ -26,43 +26,73 @@ Pour plus d'informations sur les routes, je vous invite à vous rendre <a href="
 
 ## Configuration
 
-La configuration de l'application, se déroule dans le fichier ```application.properties``` situé dans ```/src/main/resources/```
+Un exemple de configuration de l'application, se déroule dans le fichier ```.env.example``` situé à la racine du projet.
 
-[Lien vers le fichier](src/main/resources/application.properties)
+[Lien vers le fichier](.env.example)
 
-Dans ce fichier, vous pouvez configurer la connexion à votre base de données.
-
-Voici un exemple avec la configuration suivante : 
-- Adresse : localhost
-- Port : 3306
-- Base : "lp1Projet"
-- Username : "root"
-- Password : "flatflat"
-
-```
-spring.datasource.url = jdbc:mysql://localhost:3306/lp1Projet?useSSL=false
-spring.datasource.username = root
-spring.datasource.password = flatflat
-```
+Afin d'appliquer votre configuration, vous pouvez vous rendre 
 
 Une fois la base de données renseignée et l'application lancée, cette dernière, via Hibernate, va générer tout ce qui est nécessaire à son fonctionnement.
 
 ## Lancement
 
-Nous pouvons lancer l'application de deux manières différentes.
+Deux options s'offrent à vous. 
 
-Depuis la racine du projet, lancer cette commande : 
+1) Vous souhaitez tout faire sur Docker (recommandé) :
+
+Dans ce cas, veuillez suivre la partie sur [Docker](#docker).
+
+2) Vous possédez déjà une base de données :
+
+Dans ce cas, veuillez commencer par copier le fichier `.env.example` et le renommer en `.env`.
+
+Une fois ouvert, vous obtiendrez le fichier suivant :
+
+```env
+# Application
+DATABASE_URL=mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+DATABASE_NAME=#__db_name__#
+DATABASE_USER=#__db_user__#
+DATABASE_PASS=#__db_pass__#
+DATABASE_HOST=#__db_host__#
+DATABASE_PORT=#__db_port__#
+
+# MySQL
+MYSQL_DATABASE=${DATABASE_NAME}
+MYSQL_RANDOM_ROOT_PASSWORD=yes
+MYSQL_USER=${DATABASE_USER}
+MYSQL_PASSWORD=${DATABASE_PASS}
+```
+
+Pour changer les identifiants de connexion à la base de données, vous pouvez changer les champs suivants : 
+
+- `#__db_user__#`
+- `#__db_pass__#`
+- `#__db_name__#`
+- `#__db_host__#`
+- `#__db_port__#`
+
+Pour finir la configuration, enregistrez votre fichier `.env` à la racine du projet.
+
+Passons maintenant au lancement de l'application. 
+
+Deux options s'offrent à vous : 
+
+- Depuis la racine du projet, lancer cette commande : 
 
 ```bash
 mvn spring-boot:run
 ```
 
-Depuis votre environnement de développement, lancer la méthode suivante : 
+- Depuis votre environnement de développement, lancer la méthode suivante :
+
 ```java
 Lp1ProjectApplication.main()
 ```
 
 En tant que méthode lancée en "Standalone", qui va lancer le serveur intégré Tomcat sur le port 8080.
+
+--
 
 Après cela, il suffira de vous rendre à l'aide de votre client Web sur l'url suivante : 
 
@@ -86,23 +116,24 @@ Une fois ouvert, vous obtiendrez le fichier suivant :
 
 ```env
 # Application
-DATABASE_URL=mysql://${DATABASE_HOST}:3306/${MYSQL_DATABASE}
-DATABASE_USER=${MYSQL_USER}
-DATABASE_PASS=${MYSQL_PASSWORD}
+DATABASE_URL=mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+DATABASE_NAME=lp1Project
+DATABASE_USER=#__db_user__#
+DATABASE_PASS=#__db_pass__#
 DATABASE_HOST=lp1-mysql
+DATABASE_PORT=3306
 
 # MySQL
-MYSQL_DATABASE=lp1Project
-MYSQL_ROOT_PASSWORD=__db_root_pass__
-MYSQL_USER=__db_user__
-MYSQL_PASSWORD=__db_pass__
+MYSQL_DATABASE=${DATABASE_NAME}
+MYSQL_RANDOM_ROOT_PASSWORD=yes
+MYSQL_USER=${DATABASE_USER}
+MYSQL_PASSWORD=${DATABASE_PASS}
 ```
 
-Pour changer les identifiants de connexion à la base de données, vous pouvez changer les trois derniers champs : 
+Pour changer les identifiants de connexion à la base de données, vous pouvez changer les deux champs "DATABASE_USER" et "DATABASE_PASS" : 
 
-- `__db_root_pass__`
-- `__db_user__`
-- `__db_pass__`
+- `#__db_user__#`
+- `#__db_pass__#`
 
 Pour finir, enregistrez votre fichier `.env` à la racine du projet.
 
