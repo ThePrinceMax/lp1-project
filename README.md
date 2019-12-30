@@ -40,7 +40,7 @@ Dans ce cas, veuillez commencer par copier le fichier `.env.example` et le renom
 
 Une fois ouvert, vous obtiendrez le fichier suivant :
 
-```env
+```sh
 # Application
 DATABASE_URL=mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
 DATABASE_NAME=lp1Project
@@ -108,7 +108,7 @@ Pour commencer, veuillez copier le fichier `.env.example` et le renommer en `.en
 
 Une fois ouvert, vous obtiendrez le fichier suivant :
 
-```env
+```sh
 # Application
 DATABASE_URL=mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
 DATABASE_NAME=lp1Project
