@@ -23,23 +23,28 @@ public class Colocation {
 	public void setId(int id) { this.id = id; }
 
 	public List<Person> getPeople() {
-		return member;
+		return this.member;
 	}
 
-	public void setPeople(List<Person> people) {
+	public List<Person> setPeople(List<Person> people) {
 		this.member = people;
+		return this.member;
 	}
 
-	public void addPeople(Person person) {
+	public List<Person> addPeople(Person person) {
 		this.member.add(person);
+		return this.member;
 	}
 
-	public void deletePeople(Person person) {
-		this.member.remove(person);
+	public List<Person> deletePeople(Person person) {
+		if (this.member.contains(person)){
+			this.member.remove(person);
+		}
+		return this.member;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
