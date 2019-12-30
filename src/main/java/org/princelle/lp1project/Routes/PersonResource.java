@@ -39,6 +39,14 @@ public class PersonResource {
 		return ResponseEntity.ok().body(person);
 	}
 
+	@GET
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Path("/users/email")
+	public Person getPersonByEmailID(String email) {
+		return personRepository.findPersonByEmailId(email);
+	}
+
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
