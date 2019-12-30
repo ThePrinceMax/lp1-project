@@ -8,7 +8,9 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 
 import org.princelle.lp1project.Entities.Colocation;
+import org.princelle.lp1project.Entities.Person;
 import org.princelle.lp1project.Repositories.ColocationRepository;
+import org.princelle.lp1project.Repositories.PersonRepository;
 import org.princelle.lp1project.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class ColocationResource {
 	@Autowired
 	private ColocationRepository colocRepository;
 
+	@Autowired
+	private PersonRepository personRepository;
+
 	@GET
 	@Produces("application/json")
 	@Path("/colocs")
@@ -34,9 +39,33 @@ public class ColocationResource {
 	@Produces("application/json")
 	@Path("/colocs/{id}")
 	public ResponseEntity<Colocation> getColocationById(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
-		Colocation user = colocRepository.findById(colocId)
+		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
-		return ResponseEntity.ok().body(user);
+		return ResponseEntity.ok().body(coloc);
+	}
+
+	@POST
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Path("/colocs/{id}/members")
+	public List<Person> addUsertoColocation(@PathParam(value = "id") Long colocId, Long userID) throws ResourceNotFoundException {
+		Colocation coloc = colocRepository.findById(colocId)
+				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
+		Person user = personRepository.findById(userID)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userID));
+
+		List<Person> users = coloc.addPeople(user);
+		return users;
+	}
+
+	@POST
+	@Produces("application/json")
+	@Path("/colocs/{id}/members")
+	public List<Person> getMembersByColocationID(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
+		Colocation coloc = colocRepository.findById(colocId)
+				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
+		List<Person> users = coloc.getPeople();
+		return users;
 	}
 
 	@POST
@@ -76,5 +105,24 @@ public class ColocationResource {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
+	}
+
+	@DELETE
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Path("/colocs/{id}/members")
+	public List<Person> deleteUserFromColocation(@PathParam(value = "id") Long colocId, Long userId) throws ResourceNotFoundException {
+		Colocation coloc = colocRepository.findById(colocId)
+				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
+
+		Person user = personRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
+
+		if (!(coloc.getPeople().contains(user))){
+			throw new ResourceNotFoundException("User :: " + userId + " not found in Colocation :: " + colocId);
+		}
+
+		List<Person> users = coloc.deletePeople(user);
+		return users;
 	}
 }
