@@ -26,17 +26,9 @@ Pour plus d'informations sur les routes, je vous invite à vous rendre <a href="
 
 ## Configuration
 
-Un exemple de configuration de l'application, se déroule dans le fichier ```.env.example``` situé à la racine du projet.
-
-[Lien vers le fichier](.env.example)
-
-Afin d'appliquer votre configuration, vous pouvez vous rendre 
-
 Une fois la base de données renseignée et l'application lancée, cette dernière, via Hibernate, va générer tout ce qui est nécessaire à son fonctionnement.
 
-## Lancement
-
-Deux options s'offrent à vous. 
+Pour la configuration, deux options s'offrent à vous. 
 
 1) Vous souhaitez tout faire sur Docker (recommandé) :
 
@@ -51,11 +43,11 @@ Une fois ouvert, vous obtiendrez le fichier suivant :
 ```env
 # Application
 DATABASE_URL=mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
-DATABASE_NAME=#__db_name__#
+DATABASE_NAME=lp1Project
 DATABASE_USER=#__db_user__#
 DATABASE_PASS=#__db_pass__#
-DATABASE_HOST=#__db_host__#
-DATABASE_PORT=#__db_port__#
+DATABASE_HOST=lp1-mysql
+DATABASE_PORT=3306
 
 # MySQL
 MYSQL_DATABASE=${DATABASE_NAME}
@@ -66,13 +58,15 @@ MYSQL_PASSWORD=${DATABASE_PASS}
 
 Pour changer les identifiants de connexion à la base de données, vous pouvez changer les champs suivants : 
 
-- `#__db_user__#`
-- `#__db_pass__#`
-- `#__db_name__#`
-- `#__db_host__#`
-- `#__db_port__#`
+- DATABASE_USER : `#__db_user__#`
+- DATABASE_PASS : `#__db_pass__#`
+- DATABASE_NAME : `lp1Project` (le nom de votre base, qui doit être **créé au préalable** !)
+- DATABASE_HOST : `lp1-mysql` (si votre base est locale, mettez `localhost`)
+- DATABASE_PORT : `3306`
 
 Pour finir la configuration, enregistrez votre fichier `.env` à la racine du projet.
+
+## Lancement
 
 Passons maintenant au lancement de l'application. 
 
