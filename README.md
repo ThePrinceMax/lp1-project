@@ -60,7 +60,7 @@ Pour changer les identifiants de connexion à la base de données, vous pouvez c
 
 - DATABASE_USER : `#__db_user__#`
 - DATABASE_PASS : `#__db_pass__#`
-- DATABASE_NAME : `lp1Project` (le nom de votre base, qui doit être __créée au préalable__ !)
+- DATABASE_NAME : `lp1Project` (le nom de votre base, __créée au préalable__ !)
 - DATABASE_HOST : `lp1-mysql` (si votre base est locale, mettez `localhost`)
 - DATABASE_PORT : `3306`
 
