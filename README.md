@@ -229,4 +229,4 @@ Ce projet Maven est basé sur :
 
 ----
 
-<a href="#lp1-project">Remonter en haut</a>
+[Remonter en haut](#lp1-project---api)
