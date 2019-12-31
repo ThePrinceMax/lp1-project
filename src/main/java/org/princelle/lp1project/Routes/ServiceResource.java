@@ -1,6 +1,5 @@
 package org.princelle.lp1project.Routes;
 
-import org.princelle.lp1project.Entities.AchievedService;
 import org.princelle.lp1project.Entities.Person;
 import org.princelle.lp1project.Entities.Service;
 import org.princelle.lp1project.Repositories.AchievedServiceRepository;
