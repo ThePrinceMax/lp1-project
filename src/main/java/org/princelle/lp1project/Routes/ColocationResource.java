@@ -11,7 +11,7 @@ import org.princelle.lp1project.Entities.Colocation;
 import org.princelle.lp1project.Entities.Person;
 import org.princelle.lp1project.Repositories.ColocationRepository;
 import org.princelle.lp1project.Repositories.PersonRepository;
-import org.princelle.lp1project.ResourceNotFoundException;
+import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

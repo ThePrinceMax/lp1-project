@@ -1,4 +1,4 @@
-package org.princelle.lp1project;
+package org.princelle.lp1project.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
