@@ -54,6 +54,9 @@ MYSQL_DATABASE=${DATABASE_NAME}
 MYSQL_RANDOM_ROOT_PASSWORD=yes
 MYSQL_USER=${DATABASE_USER}
 MYSQL_PASSWORD=${DATABASE_PASS}
+
+# JWT
+JWT_SECRET=QhEEDgVhHpnehgVcypQNCyJYTTeTkPoncwHPBcJJFPWnJ3Pt76M49vZQioit
 ```
 
 Pour changer les identifiants de connexion à la base de données, vous pouvez changer les champs suivants : 
@@ -122,6 +125,9 @@ MYSQL_DATABASE=${DATABASE_NAME}
 MYSQL_RANDOM_ROOT_PASSWORD=yes
 MYSQL_USER=${DATABASE_USER}
 MYSQL_PASSWORD=${DATABASE_PASS}
+
+# JWT
+JWT_SECRET=QhEEDgVhHpnehgVcypQNCyJYTTeTkPoncwHPBcJJFPWnJ3Pt76M49vZQioit
 ```
 
 Pour changer les identifiants de connexion à la base de données, vous pouvez changer les deux champs "DATABASE_USER" et "DATABASE_PASS" : 

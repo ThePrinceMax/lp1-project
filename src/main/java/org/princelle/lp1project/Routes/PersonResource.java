@@ -43,8 +43,13 @@ public class PersonResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/users/email")
-	public Person getPersonByEmailID(String email) {
-		return personRepository.findPersonByEmailId(email);
+	public Person getPersonByEmailID(String email) throws ResourceNotFoundException {
+		Person person = personRepository.findPersonByEmailId(email);
+		if (person == null) {
+			throw new ResourceNotFoundException("User not found by email :: " + email);
+		} else {
+			return person;
+		}
 	}
 
 	@POST
