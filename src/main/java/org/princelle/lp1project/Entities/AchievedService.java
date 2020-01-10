@@ -20,6 +20,8 @@ public class AchievedService {
 	private boolean validTo;
 	private boolean validFrom;
 
+
+
 	public long getId() { return id; }
 
 	public void setId(int id) { this.id = id; }
@@ -33,10 +35,7 @@ public class AchievedService {
 	}
 
 	public boolean isPicture() {
-		if (StringUtils.isNullOrEmpty(this.picture)) {
-			return true;
-		}
-		return false;
+		return StringUtils.isNullOrEmpty(this.picture);
 	}
 
 	public String getPicture() {
