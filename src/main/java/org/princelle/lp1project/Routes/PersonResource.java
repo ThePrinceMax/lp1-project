@@ -44,12 +44,20 @@ public class PersonResource {
 	@Consumes("application/json")
 	@Path("/users/email")
 	public Person getPersonByEmailID(String email) throws ResourceNotFoundException {
-		Person person = personRepository.findPersonByEmailId(email);
+		Person person = personRepository.findByEmailId(email);
 		if (person == null) {
 			throw new ResourceNotFoundException("User not found by email :: " + email);
 		} else {
 			return person;
 		}
+	}
+
+	@GET
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Path("/users/nocoloc")
+	public List<Person> getPersonWithNoColoc() throws ResourceNotFoundException {
+		return personRepository.findByColocIsNull();
 	}
 
 	@POST

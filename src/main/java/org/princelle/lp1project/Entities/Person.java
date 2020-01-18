@@ -25,6 +25,10 @@ public class Person {
 	@Column(name = "score", nullable = false)
 	private Integer score = 0;
 
+	@ManyToOne(targetEntity = Colocation.class)
+	@JoinColumn(name = "coloc")
+	private Colocation coloc;
+
 	public long getId() { return id; }
 
 	public void setId(int id) { this.id = id; }
@@ -67,5 +71,13 @@ public class Person {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public Colocation getColoc() {
+		return coloc;
+	}
+
+	public void setColoc(Colocation colocObj) {
+		this.coloc = colocObj;
 	}
 }
