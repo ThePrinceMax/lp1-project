@@ -1,11 +1,12 @@
 package org.princelle.lp1project.Entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
-@Table(name = "table_service")
-public class Service {
+@Table(name = "table_task")
+public class Task {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -13,7 +14,19 @@ public class Service {
 	@Column(name = "title", nullable = false)
 	private String title;
 
-	@Column(name = "description", nullable = false)
+	public long getId() { return id; }
+
+	public void setId(int id) { this.id = id; }
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/*@Column(name = "description", nullable = false)
 	private String description;
 
 	@Column(name = "cost", nullable = false)
@@ -22,32 +35,24 @@ public class Service {
 	@Column(name = "proposed", nullable = false)
 	private Boolean proposed = false;
 
-	@OneToOne(targetEntity = AchievedService.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "achieved")
-	private AchievedService achieved;
-
 	@ManyToOne(targetEntity = Colocation.class)
-	@JoinColumn(name = "coloc", nullable = false)
-	private Colocation coloc;
+	@JoinColumn(name = "coloc")
+	private Colocation coloc = null;
 
 	@ManyToOne(targetEntity = Person.class)
-	@JoinColumn(name = "fromPerson", nullable = false)
-	private Person fromPerson;
+	@JoinColumn(name = "fromUser")
+	private Person fromPerson = null;
 
-	@ManyToMany(targetEntity = Person.class)
-	@JoinColumn(name = "toPeople")
-	private List<Person> toPeople;
+	@ManyToOne(targetEntity = Person.class)
+	@JoinColumn(name = "toUser")
+	private Person toPeople = null;
 
-	public Service(String title, String description, Integer cost, Boolean proposed, Colocation coloc, Person fromPerson) {
-		this.title = title;
-		this.description = description;
-		this.cost = cost;
-		this.proposed = proposed;
-		this.coloc = coloc;
-		this.fromPerson = fromPerson;
-		this.achieved = null;
-		this.toPeople = null;
-	}
+	private Date finishDate = null;
+
+	private String picture = null;
+
+	private boolean validTo = false;
+	private boolean validFrom = false;
 
 	public long getId() { return id; }
 
@@ -61,16 +66,8 @@ public class Service {
 		this.coloc = coloc;
 	}
 
-	public AchievedService getAchieved() {
-		return achieved;
-	}
-
-	public void setAchieved(AchievedService achieved) {
-		this.achieved = achieved;
-	}
-
 	public boolean isAchieved() {
-		if (this.achieved != null) {
+		if (this.finishDate != null) {
 			return true;
 		}
 		return false;
@@ -117,12 +114,47 @@ public class Service {
 		return this.fromPerson;
 	}
 
-	public List<Person> getToPeople() {
+	public Person getToPeople() {
 		return toPeople;
 	}
 
-	public List<Person> setToPeople(List<Person> toPeople) {
+	public void setToPeople(Person toPeople) {
 		this.toPeople = toPeople;
-		return this.toPeople;
 	}
+
+	public Date getFinishDate() {
+		return finishDate;
+	}
+
+	public Date setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+		return this.finishDate;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public String setPicture(String picture) {
+		this.picture = picture;
+		return this.picture;
+	}
+
+	public boolean isValidTo() {
+		return validTo;
+	}
+
+	public boolean setValidTo(boolean validTo) {
+		this.validTo = validTo;
+		return this.validTo;
+	}
+
+	public boolean isValidFrom() {
+		return validFrom;
+	}
+
+	public boolean setValidFrom(boolean validFrom) {
+		this.validFrom = validFrom;
+		return this.validFrom;
+	}*/
 }
