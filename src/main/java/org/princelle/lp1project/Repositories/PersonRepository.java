@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long>{
 
-	Person findByEmailId(String email);
 	List<Person> findByColocId(Long colocId);
 
 	List<Person> findByColocIsNull();

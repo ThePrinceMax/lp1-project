@@ -48,6 +48,15 @@ public class ColocationResource {
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
+	@Path("/colocs")
+	@PostMapping("/colocs")
+	public Colocation createColocation(Colocation coloc) {
+		return colocRepository.save(coloc);
+	}
+
+	@POST
+	@Produces("application/json")
+	@Consumes("application/json")
 	@Path("/colocs/{id}/members/{userID}")
 	public List<Person> addUsertoColocation(@PathParam(value = "id") Long colocId, @PathParam(value = "userID") Long userID) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
@@ -70,15 +79,6 @@ public class ColocationResource {
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 		List<Person> users = personRepository.findByColocId(coloc.getId());
 		return users;
-	}
-
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/colocs")
-	@PostMapping("/colocs")
-	public Colocation createColocation(Colocation coloc) {
-		return colocRepository.save(coloc);
 	}
 
 	@PUT

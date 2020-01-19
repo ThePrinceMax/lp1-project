@@ -1,6 +1,8 @@
 package org.princelle.lp1project.Entities;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "table_users")
