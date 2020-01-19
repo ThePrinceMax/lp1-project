@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "table_task")
+@Table(name = "table_taches")
 public class Task {
 
 	@Id
@@ -14,19 +14,7 @@ public class Task {
 	@Column(name = "title", nullable = false)
 	private String title;
 
-	public long getId() { return id; }
-
-	public void setId(int id) { this.id = id; }
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/*@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false)
 	private String description;
 
 	@Column(name = "cost", nullable = false)
@@ -45,41 +33,23 @@ public class Task {
 
 	@ManyToOne(targetEntity = Person.class)
 	@JoinColumn(name = "toUser")
-	private Person toPeople = null;
+	private Person toPerson = null;
 
-	private Date finishDate = null;
+	@Column(name = "finishDate")
+	private String finishDate = null;
 
+	@Column(name = "picture")
 	private String picture = null;
 
+	@Column(name = "validTo")
 	private boolean validTo = false;
+
+	@Column(name = "validFrom")
 	private boolean validFrom = false;
 
 	public long getId() { return id; }
 
 	public void setId(int id) { this.id = id; }
-
-	public Colocation getColoc() {
-		return coloc;
-	}
-
-	public void setColoc(Colocation coloc) {
-		this.coloc = coloc;
-	}
-
-	public boolean isAchieved() {
-		if (this.finishDate != null) {
-			return true;
-		}
-		return false;
-	}
-
-	public Boolean getProposed() {
-		return proposed;
-	}
-
-	public void setProposed(Boolean proposed) {
-		this.proposed = proposed;
-	}
 
 	public String getTitle() {
 		return title;
@@ -105,56 +75,67 @@ public class Task {
 		this.cost = cost;
 	}
 
+	public Boolean getProposed() {
+		return proposed;
+	}
+
+	public void setProposed(Boolean proposed) {
+		this.proposed = proposed;
+	}
+
+	public Colocation getColoc() {
+		return coloc;
+	}
+
+	public void setColoc(Colocation coloc) {
+		this.coloc = coloc;
+	}
+
 	public Person getFromPerson() {
 		return fromPerson;
 	}
 
-	public Person setFromPerson(Person fromPerson) {
+	public void setFromPerson(Person fromPerson) {
 		this.fromPerson = fromPerson;
-		return this.fromPerson;
 	}
 
-	public Person getToPeople() {
-		return toPeople;
+	public Person getToPerson() {
+		return toPerson;
 	}
 
-	public void setToPeople(Person toPeople) {
-		this.toPeople = toPeople;
+	public void setToPerson(Person toPerson) {
+		this.toPerson = toPerson;
 	}
 
-	public Date getFinishDate() {
+	public String getFinishDate() {
 		return finishDate;
 	}
 
-	public Date setFinishDate(Date finishDate) {
+	public void setFinishDate(String finishDate) {
 		this.finishDate = finishDate;
-		return this.finishDate;
 	}
 
 	public String getPicture() {
 		return picture;
 	}
 
-	public String setPicture(String picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
-		return this.picture;
 	}
 
 	public boolean isValidTo() {
 		return validTo;
 	}
 
-	public boolean setValidTo(boolean validTo) {
+	public void setValidTo(boolean validTo) {
 		this.validTo = validTo;
-		return this.validTo;
 	}
 
 	public boolean isValidFrom() {
 		return validFrom;
 	}
 
-	public boolean setValidFrom(boolean validFrom) {
+	public void setValidFrom(boolean validFrom) {
 		this.validFrom = validFrom;
-		return this.validFrom;
-	}*/
+	}
 }
