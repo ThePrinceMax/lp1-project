@@ -11,7 +11,5 @@ import java.util.List;
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Long>{
 
-	@Query("SELECT s FROM Service s WHERE s.achieved = :a_id")
-	List<Service> findByAchieved_Id(@Param("a_id") Long a_id);
-
+	List<Service> findByAchieved_Id(long id);
 }

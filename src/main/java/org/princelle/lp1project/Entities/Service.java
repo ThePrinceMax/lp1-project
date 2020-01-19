@@ -1,15 +1,11 @@
 package org.princelle.lp1project.Entities;
 
-import org.princelle.lp1project.Utils.StringUtils;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "table_service")
 public class Service {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -21,13 +17,13 @@ public class Service {
 	private String description;
 
 	@Column(name = "cost", nullable = false)
-	private Integer cost;
+	private Integer cost = 0;
 
 	@Column(name = "proposed", nullable = false)
 	private Boolean proposed = false;
 
-	@OneToOne(targetEntity = AchievedService.class)
-	@JoinColumn(name = "achieved", nullable = false)
+	@OneToOne(targetEntity = AchievedService.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "achieved")
 	private AchievedService achieved;
 
 	@ManyToOne(targetEntity = Colocation.class)
@@ -35,12 +31,23 @@ public class Service {
 	private Colocation coloc;
 
 	@ManyToOne(targetEntity = Person.class)
-	@JoinColumn(name = "fromUser", nullable = false)
+	@JoinColumn(name = "fromPerson", nullable = false)
 	private Person fromPerson;
 
-	@ManyToOne(targetEntity = Person.class)
-	@JoinColumn(name = "toUser")
-	private List toPeople;
+	@ManyToMany(targetEntity = Person.class)
+	@JoinColumn(name = "toPeople")
+	private List<Person> toPeople;
+
+	public Service(String title, String description, Integer cost, Boolean proposed, Colocation coloc, Person fromPerson) {
+		this.title = title;
+		this.description = description;
+		this.cost = cost;
+		this.proposed = proposed;
+		this.coloc = coloc;
+		this.fromPerson = fromPerson;
+		this.achieved = null;
+		this.toPeople = null;
+	}
 
 	public long getId() { return id; }
 
@@ -77,34 +84,6 @@ public class Service {
 		this.proposed = proposed;
 	}
 
-	public Person getFromPerson() {
-		return fromPerson;
-	}
-
-	public Person setFromPerson(Person fromPerson) {
-		this.fromPerson = fromPerson;
-		return this.fromPerson;
-	}
-
-	public List<Person> getToPeople() {
-		return this.toPeople;
-	}
-
-	public List<Person> setToPeople(ArrayList<Person> toPeople) {
-		this.toPeople = toPeople;
-		return this.toPeople;
-	}
-
-	public List<Person> addToPeople(Person toUsers) {
-		this.toPeople.add(toUsers);
-		return this.toPeople;
-	}
-
-	public List<Person> removeToPeople(Person toUsers) {
-		this.toPeople.remove(toUsers);
-		return this.toPeople;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -127,5 +106,23 @@ public class Service {
 
 	public void setCost(Integer cost) {
 		this.cost = cost;
+	}
+
+	public Person getFromPerson() {
+		return fromPerson;
+	}
+
+	public Person setFromPerson(Person fromPerson) {
+		this.fromPerson = fromPerson;
+		return this.fromPerson;
+	}
+
+	public List<Person> getToPeople() {
+		return toPeople;
+	}
+
+	public List<Person> setToPeople(List<Person> toPeople) {
+		this.toPeople = toPeople;
+		return this.toPeople;
 	}
 }

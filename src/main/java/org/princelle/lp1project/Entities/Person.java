@@ -1,6 +1,7 @@
 package org.princelle.lp1project.Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "table_users")
@@ -26,7 +27,6 @@ public class Person {
 	private Integer score = 0;
 
 	@ManyToOne(targetEntity = Colocation.class)
-	@JoinColumn(name = "coloc")
 	private Colocation coloc;
 
 	public long getId() { return id; }

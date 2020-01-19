@@ -52,7 +52,8 @@ public class AchievedServiceResource {
 	public AchievedService createAchievedService(@PathParam(value = "id") Long service_id, @RequestBody AchievedService achievedService) throws ResourceNotFoundException {
 		if (ServiceRepository.existsById(service_id)) {
 			AchievedService a_service = AchievedServiceRepository.save(achievedService);
-			Service the_service = ServiceRepository.findById(service_id).orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + service_id));
+			Service the_service = ServiceRepository.findById(service_id)
+					.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + service_id));
 
 			the_service.setAchieved(a_service);
 

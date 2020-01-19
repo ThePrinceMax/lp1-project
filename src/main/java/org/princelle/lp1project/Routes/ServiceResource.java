@@ -1,8 +1,10 @@
 package org.princelle.lp1project.Routes;
 
+import org.princelle.lp1project.Entities.Colocation;
 import org.princelle.lp1project.Entities.Person;
 import org.princelle.lp1project.Entities.Service;
 import org.princelle.lp1project.Repositories.AchievedServiceRepository;
+import org.princelle.lp1project.Repositories.ColocationRepository;
 import org.princelle.lp1project.Repositories.PersonRepository;
 import org.princelle.lp1project.Repositories.ServiceRepository;
 import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
@@ -31,6 +33,9 @@ public class ServiceResource {
 	@Autowired
 	private PersonRepository personRepository;
 
+	@Autowired
+	private ColocationRepository colocationRepository;
+
 	@GET
 	@Produces("application/json")
 	@Path("/services")
@@ -52,7 +57,22 @@ public class ServiceResource {
 	@Consumes("application/json")
 	@Path("/services")
 	@PostMapping("/services")
-	public Service createService(Service service) {
+	public Service createService(
+			@RequestBody String title,
+			@RequestBody String description,
+			@RequestBody Integer cost,
+			@RequestBody Boolean proposed,
+			@RequestBody Long coloc,
+			@RequestBody Long fromPerson
+	) throws ResourceNotFoundException {
+		Person user = personRepository.findById(fromPerson)
+					.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + fromPerson));
+
+		Colocation colocation = colocationRepository.findById(coloc)
+					.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + coloc));
+
+		Service service = new Service(title, description, cost, proposed, colocation, user);
+
 		return serviceRepository.save(service);
 	}
 
@@ -99,22 +119,54 @@ public class ServiceResource {
 		return service.getToPeople();
 	}
 
+	@GET
+	@Produces("application/json")
+	@Path("/services/{id}/from")
+	public Person getFrom(@PathParam(value = "id") Long serviceId) throws ResourceNotFoundException {
+		Service service = serviceRepository.findById(serviceId)
+				.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + serviceId));
+
+		return service.getFromPerson();
+	}
+
 	@PUT
 	@Produces("application/json")
 	@Consumes("application/json")
-	@Path("/services/{id}/to")
-	public List<Person> addTo(@PathParam(value = "id") Long serviceId, Long userId) throws ResourceNotFoundException {
+	@Path("/services/{id}/to/{userId}")
+	public List<Person> addTo(@PathParam(value = "id") Long serviceId, @PathParam(value = "userId") Long userId) throws ResourceNotFoundException {
 		Service service = serviceRepository.findById(serviceId)
 				.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + serviceId));
 
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 
-		if (service.isAchieved()) { // If Service is achieved, do not edit !
-			return service.getToPeople();
-		} else {
-			return service.addToPeople(user);
+		if (!(service.isAchieved())) { // If Service is achieved, do not edit !
+			List<Person> toPeople = service.getToPeople();
+			toPeople.add(user);
+			service.setToPeople(toPeople);
+			serviceRepository.save(service);
 		}
+
+		return service.getToPeople();
+	}
+
+	@PUT
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Path("/services/{id}/from/{userId}")
+	public Person updateFrom(@PathParam(value = "id") Long serviceId, @PathParam(value = "userId") Long userId) throws ResourceNotFoundException {
+		Service service = serviceRepository.findById(serviceId)
+				.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + serviceId));
+
+		Person user = personRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
+
+		if (!(service.isAchieved())) { // If Service is achieved, do not edit !
+			service.setFromPerson(user);
+			serviceRepository.save(service);
+		}
+
+		return service.getFromPerson();
 	}
 
 	@DELETE
@@ -135,8 +187,8 @@ public class ServiceResource {
 	@DELETE
 	@Produces("application/json")
 	@Consumes("application/json")
-	@Path("/services/{id}/to")
-	public List<Person> removeTo(@PathParam(value = "id") Long serviceId, Long userId) throws ResourceNotFoundException {
+	@Path("/services/{id}/to/{userId}")
+	public List<Person> removeTo(@PathParam(value = "id") Long serviceId, @PathParam(value = "userId") Long userId) throws ResourceNotFoundException {
 		Service service = serviceRepository.findById(serviceId)
 				.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + serviceId));
 
@@ -147,10 +199,29 @@ public class ServiceResource {
 			throw new ResourceNotFoundException("User " + userId + " not found in Service > To People :: " + serviceId);
 		}
 
-		if (service.isAchieved()) { // If Service is achieved, do not edit !
-			return service.getToPeople();
-		} else {
-			return service.removeToPeople(user);
+		if (!(service.isAchieved())) { // If Service is achieved, do not edit !
+			List<Person> toPeople = service.getToPeople();
+			toPeople.remove(user);
+			service.setToPeople(toPeople);
+			serviceRepository.save(service);
 		}
+
+		return service.getToPeople();
+	}
+
+	@DELETE
+	@Produces("application/json")
+	@Consumes("application/json")
+	@Path("/services/{id}/from")
+	public Person removeFrom(@PathParam(value = "id") Long serviceId) throws ResourceNotFoundException {
+		Service service = serviceRepository.findById(serviceId)
+				.orElseThrow(() -> new ResourceNotFoundException("Service not found :: " + serviceId));
+
+		if (!(service.isAchieved())) { // If Service is achieved, do not edit !
+			service.setFromPerson(null);
+			serviceRepository.save(service);
+		}
+
+		return service.getFromPerson();
 	}
 }

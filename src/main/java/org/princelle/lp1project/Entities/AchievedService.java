@@ -1,7 +1,5 @@
 package org.princelle.lp1project.Entities;
 
-import org.princelle.lp1project.Utils.StringUtils;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,8 +18,6 @@ public class AchievedService {
 	private boolean validTo;
 	private boolean validFrom;
 
-
-
 	public long getId() { return id; }
 
 	public void setId(int id) { this.id = id; }
@@ -35,7 +31,9 @@ public class AchievedService {
 	}
 
 	public boolean isPicture() {
-		return StringUtils.isNullOrEmpty(this.picture);
+		if(this.picture == null || this.picture == "")
+			return true;
+		return false;
 	}
 
 	public String getPicture() {
