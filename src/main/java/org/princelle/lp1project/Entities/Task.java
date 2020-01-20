@@ -36,16 +36,16 @@ public class Task {
 	private Person toPerson = null;
 
 	@Column(name = "finishDate")
-	private String finishDate = null;
+	private Date finishDate = null;
 
 	@Column(name = "picture")
 	private String picture = null;
 
 	@Column(name = "validTo")
-	private boolean validTo = false;
+	private Boolean validTo = false;
 
 	@Column(name = "validFrom")
-	private boolean validFrom = false;
+	private Boolean validFrom = false;
 
 	public long getId() { return id; }
 
@@ -107,11 +107,11 @@ public class Task {
 		this.toPerson = toPerson;
 	}
 
-	public String getFinishDate() {
+	public Date getFinishDate() {
 		return finishDate;
 	}
 
-	public void setFinishDate(String finishDate) {
+	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
 
@@ -123,7 +123,7 @@ public class Task {
 		this.picture = picture;
 	}
 
-	public boolean isValidTo() {
+	public Boolean getValidTo() {
 		return validTo;
 	}
 
@@ -131,7 +131,7 @@ public class Task {
 		this.validTo = validTo;
 	}
 
-	public boolean isValidFrom() {
+	public Boolean getValidFrom() {
 		return validFrom;
 	}
 
