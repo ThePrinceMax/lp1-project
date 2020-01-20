@@ -39,10 +39,10 @@ public class ColocationResource {
 	@GET
 	@Produces("application/json")
 	@Path("/colocs/{id}")
-	public ResponseEntity<Colocation> getColocationById(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
+	public Colocation getColocationById(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
-		return ResponseEntity.ok().body(coloc);
+		return coloc;
 	}
 
 	@POST

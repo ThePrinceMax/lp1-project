@@ -33,10 +33,10 @@ public class PersonResource {
 	@GET
 	@Produces("application/json")
 	@Path("/users/{id}")
-	public ResponseEntity<Person> getUserById(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
+	public Person getUserById(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
-		return ResponseEntity.ok().body(person);
+		return person;
 	}
 
 	@GET
