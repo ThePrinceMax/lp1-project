@@ -1,6 +1,5 @@
 package org.princelle.lp1project.Routes;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.princelle.lp1project.Entities.Colocation;
 import org.princelle.lp1project.Entities.Person;
 import org.princelle.lp1project.Entities.Task;
@@ -8,16 +7,16 @@ import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.princelle.lp1project.Repositories.ColocationRepository;
 import org.princelle.lp1project.Repositories.PersonRepository;
 import org.princelle.lp1project.Repositories.TaskRepository;
+import org.princelle.lp1project.Utils.StorageManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -327,5 +326,26 @@ public class TaskResource {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
+	}
+
+	@POST
+	@Produces("application/json")
+	@Path("/tasks/{id}/image")
+	@PostMapping("/tasks/{id}/uploadImage")
+	public Task uploadImage(@PathParam(value = "id") Long taskId, @RequestParam("file") MultipartFile file) throws ResourceNotFoundException {
+		Task task = taskRepository.findById(taskId)
+				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
+
+		String url = "";
+
+		try {
+			url = StorageManager.upload(file, task);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		task.setPicture(url);
+
+		return taskRepository.save(task);
 	}
 }
