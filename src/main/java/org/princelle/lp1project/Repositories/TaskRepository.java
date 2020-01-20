@@ -21,4 +21,6 @@ public interface TaskRepository extends JpaRepository<Task, Long>{
 	List<Task> findAllByFromPerson(Person person);
 	List<Task> findTasksByProposedIsTrueAndFromPerson(Person person);
 	List<Task> findTasksByFromPersonAndFinishDateIsNull(Person person);
+	List<Task> findTasksByColocAndToPersonIsNull(Colocation colocation);
+	List<Task> findTasksByToPersonIsNull();
 }

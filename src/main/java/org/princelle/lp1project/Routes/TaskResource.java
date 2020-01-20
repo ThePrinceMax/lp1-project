@@ -64,6 +64,23 @@ public class TaskResource {
 
 	@GET
 	@Produces("application/json")
+	@Path("/tasks/not_attributed")
+	public List<Task> getAllTasksNotAttributed() {
+		return taskRepository.findTasksByToPersonIsNull();
+	}
+
+	@GET
+	@Produces("application/json")
+	@Path("/tasks/coloc/{colocId}/not_attributed")
+	public List<Task> getAllTasksNotAttributedbyColoc(@PathParam(value = "colocId") Long colocId) throws ResourceNotFoundException {
+		Colocation coloc = colocationRepository.findById(colocId)
+				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
+
+		return taskRepository.findTasksByColocAndToPersonIsNull(coloc);
+	}
+
+	@GET
+	@Produces("application/json")
 	@Path("/tasks/pending")
 	public List<Task> getAllPendingTasks() {
 		return taskRepository.findTasksByFinishDateIsNull();
@@ -72,7 +89,7 @@ public class TaskResource {
 	@GET
 	@Produces("application/json")
 	@Path("/tasks/coloc/{colocId}/pending")
-	public List<Task> getAllPendingTasksbyColoc(@PathParam(value = "colocId") Long colocId) throws ResourceNotFoundException {
+	public List<Task> getAllPendingTasksByColoc(@PathParam(value = "colocId") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocationRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 
@@ -89,7 +106,7 @@ public class TaskResource {
 	@GET
 	@Produces("application/json")
 	@Path("/tasks/coloc/{colocId}/proposed")
-	public List<Task> getAllProposedTasksbyColoc(@PathParam(value = "colocId") Long colocId) throws ResourceNotFoundException {
+	public List<Task> getAllProposedTasksByColoc(@PathParam(value = "colocId") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocationRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 
