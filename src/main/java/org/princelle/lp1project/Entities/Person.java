@@ -25,6 +25,9 @@ public class Person {
 	@Column(name = "password", nullable = false)
 	private String password;
 
+	@Column(name = "pseudo", nullable = false)
+	private String pseudo;
+
 	@Column(name = "score", nullable = false)
 	private Integer score = 0;
 

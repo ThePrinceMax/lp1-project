@@ -1,20 +1,19 @@
 package org.princelle.lp1project.Routes;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-import javax.ws.rs.*;
-
 import org.princelle.lp1project.Entities.Person;
-import org.princelle.lp1project.Repositories.PersonRepository;
 import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
+import org.princelle.lp1project.Repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
+import javax.ws.rs.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 @Path("/api")
