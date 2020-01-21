@@ -25,6 +25,13 @@ public class PersonResource {
 
 	@GET
 	@Produces("application/json")
+	@Path("/")
+	public String hello() {
+		return "Hello ! Welcome on the API for the LP1 Project.";
+	}
+
+	@GET
+	@Produces("application/json")
 	@Path("/users")
 	public List<Person> getAllUsers() {
 		return personRepository.findAll();
