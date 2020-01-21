@@ -1,6 +1,6 @@
 # LP1 Project - API
 
-Oui, vous avez bien lu. Une simple API, en Java. (En cours de développement, pas encore en ligne)
+Oui, vous avez bien lu. Une simple API, en Java. (Version béta)
 
 Créé par : [Maxime Princelle](https://princelle.org)
 
@@ -18,7 +18,7 @@ __Sommaire__
 
 __Projet encore en cours de développement...__
 
-L'API sera, quand elle sera terminée, accessible via ce lien : 
+L'API est accessible via ce lien : 
 
 [https://lp1.princelle.org/api](https://lp1.princelle.org/api)
 
