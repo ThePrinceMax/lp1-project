@@ -7,7 +7,7 @@ services:
     depends_on:
       - lp1-mysql
     environment:
-      PMA_HOST: lp1-mysql
+      PMA_HOST: localhost
       PMA_PORT: 3306
     ports:
       - "8084:80"
