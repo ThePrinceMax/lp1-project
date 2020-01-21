@@ -5,7 +5,7 @@ services:
     container_name: lp1-phpmyadmin
     image: phpmyadmin/phpmyadmin
     depends_on:
-      - lp1-mysql
+      - db
     links:
       - db:db
     ports:
@@ -43,4 +43,4 @@ services:
       - .env
     command: mvn clean spring-boot:run
     depends_on:
-      - lp1-mysql
+      - db
