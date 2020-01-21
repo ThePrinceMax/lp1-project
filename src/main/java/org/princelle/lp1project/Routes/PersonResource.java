@@ -47,7 +47,7 @@ public class PersonResource {
 
 	@GET
 	@Produces("application/json")
-	@Path("/users/{pseudo}")
+	@Path("/users/pseudo/{pseudo}")
 	public Person getUserByPseudo(@PathParam(value = "pseudo") String pseudo) {
 		return personRepository.findPersonByPseudo(pseudo);
 	}
@@ -64,6 +64,7 @@ public class PersonResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@PostMapping("/signup")
+	@Path("/signup")
 	public Person createUser(Person person) {
 		return personRepository.save(person);
 	}
