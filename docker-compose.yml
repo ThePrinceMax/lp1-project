@@ -24,8 +24,6 @@ services:
       PMA_HOST: db
     volumes:
       - "./db/mysql:/var/lib/mysql"
-    ports:
-      - "3306:3306"
     restart: unless-stopped
 
   app:
