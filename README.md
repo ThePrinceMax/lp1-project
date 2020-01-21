@@ -44,16 +44,14 @@ Une fois ouvert, vous obtiendrez le fichier suivant :
 # Application
 DATABASE_URL=mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
 DATABASE_NAME=lp1Project
-DATABASE_USER=#__db_user__#
+DATABASE_USER=root
 DATABASE_PASS=#__db_pass__#
 DATABASE_HOST=lp1-mysql
 DATABASE_PORT=3306
 
 # MySQL
 MYSQL_DATABASE=${DATABASE_NAME}
-MYSQL_RANDOM_ROOT_PASSWORD=yes
-MYSQL_USER=${DATABASE_USER}
-MYSQL_PASSWORD=${DATABASE_PASS}
+MYSQL_ROOT_PASSWORD=${DATABASE_PASS}
 
 # JWT
 JWT_SECRET=QhEEDgVhHpnehgVcypQNCyJYTTeTkPoncwHPBcJJFPWnJ3Pt76M49vZQioit
@@ -61,7 +59,7 @@ JWT_SECRET=QhEEDgVhHpnehgVcypQNCyJYTTeTkPoncwHPBcJJFPWnJ3Pt76M49vZQioit
 
 Pour changer les identifiants de connexion à la base de données, vous pouvez changer les champs suivants : 
 
-- DATABASE_USER : `#__db_user__#`
+- DATABASE_USER : `root` (si votre base est locale, mettez l'utilisateur disposant des droits sur votre base)
 - DATABASE_PASS : `#__db_pass__#`
 - DATABASE_NAME : `lp1Project` (le nom de votre base, __créée au préalable__ !)
 - DATABASE_HOST : `lp1-mysql` (si votre base est locale, mettez `localhost`)
