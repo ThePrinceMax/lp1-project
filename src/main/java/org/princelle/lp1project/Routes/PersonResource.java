@@ -48,17 +48,23 @@ public class PersonResource {
 
 	@GET
 	@Produces("application/json")
+	@Path("/users/{pseudo}")
+	public Person getUserByPseudo(@PathParam(value = "pseudo") String pseudo) {
+		return personRepository.findPersonByPseudo(pseudo);
+	}
+
+	@GET
+	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/users/nocoloc")
-	public List<Person> getPersonWithNoColoc() throws ResourceNotFoundException {
+	public List<Person> getPersonWithNoColoc() {
 		return personRepository.findByColocIsNull();
 	}
 
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
-	@Path("/users")
-	@PostMapping("/users")
+	@PostMapping("/signup")
 	public Person createUser(Person person) {
 		return personRepository.save(person);
 	}
@@ -86,6 +92,10 @@ public class PersonResource {
 
 		if (personDetails.getScore() != null){
 			person.setScore(personDetails.getScore());
+		}
+
+		if (personDetails.getPseudo() != null){
+			person.setPseudo(personDetails.getPseudo());
 		}
 
 		final Person personEdited = personRepository.save(person);
