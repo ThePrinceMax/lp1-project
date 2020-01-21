@@ -1,26 +1,21 @@
 package org.princelle.lp1project.Routes;
 
-import java.util.ArrayList;
+import org.princelle.lp1project.Entities.Colocation;
+import org.princelle.lp1project.Entities.Person;
+import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
+import org.princelle.lp1project.Repositories.ColocationRepository;
+import org.princelle.lp1project.Repositories.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-import javax.ws.rs.*;
-
-import org.princelle.lp1project.Entities.Colocation;
-import org.princelle.lp1project.Entities.Person;
-import org.princelle.lp1project.Repositories.ColocationRepository;
-import org.princelle.lp1project.Repositories.PersonRepository;
-import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-@Component
-@Path("/api")
+@RestController
+@CrossOrigin(origins = "*")
 public class ColocationResource {
 
 	@Autowired
@@ -29,36 +24,25 @@ public class ColocationResource {
 	@Autowired
 	private PersonRepository personRepository;
 
-	@GET
-	@Produces("application/json")
-	@Path("/colocs")
+	@GetMapping(value = "/api/colocs", produces = "application/json")
 	public List<Colocation> getAllColcations() {
 		return colocRepository.findAll();
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/colocs/{id}")
-	public Colocation getColocationById(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
+	@GetMapping(value = "/api/colocs/{id}", produces = "application/json")
+	public Colocation getColocationById(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 		return coloc;
 	}
 
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/colocs")
-	@PostMapping("/colocs")
-	public Colocation createColocation(Colocation coloc) {
+	@PostMapping(value = "/api/colocs", produces = "application/json", consumes = "application/json")
+	public Colocation createColocation(@Valid @RequestBody Colocation coloc) {
 		return colocRepository.save(coloc);
 	}
 
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/colocs/{id}/members/{userID}")
-	public List<Person> addUsertoColocation(@PathParam(value = "id") Long colocId, @PathParam(value = "userID") Long userID) throws ResourceNotFoundException {
+	@PostMapping(value = "/api/colocs/{id}/members/{userID}", produces = "application/json", consumes = "application/json")
+	public List<Person> addUsertoColocation(@PathVariable(value = "id") Long colocId, @PathVariable(value = "userID") Long userID) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 		Person user = personRepository.findById(userID)
@@ -71,21 +55,16 @@ public class ColocationResource {
 		return users;
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/colocs/{id}/members")
-	public List<Person> getMembersByColocationID(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
+	@GetMapping(value = "/api/colocs/{id}/members", produces = "application/json")
+	public List<Person> getMembersByColocationID(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 		List<Person> users = personRepository.findByColocId(coloc.getId());
 		return users;
 	}
 
-	@PUT
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/colocs/{id}")
-	public ResponseEntity<Colocation> updateColocation(@PathParam(value = "id") Long colocId,
+	@PutMapping(value = "/api/colocs/{id}", produces = "application/json", consumes = "application/json")
+	public ResponseEntity<Colocation> updateColocation(@PathVariable(value = "id") Long colocId,
 										   @Valid @RequestBody Colocation colocDetails) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -98,10 +77,8 @@ public class ColocationResource {
 		return ResponseEntity.ok(colocEdited);
 	}
 
-	@DELETE
-	@Produces("application/json")
-	@Path("/colocs/{id}")
-	public Map<String, Boolean> deleteColocation(@PathParam(value = "id") Long colocId) throws ResourceNotFoundException {
+	@DeleteMapping(value = "/api/colocs/{id}", produces = "application/json")
+	public Map<String, Boolean> deleteColocation(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation user = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 
@@ -111,11 +88,8 @@ public class ColocationResource {
 		return response;
 	}
 
-	@DELETE
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/colocs/{id}/members/{userID}")
-	public List<Person> deleteUserFromColocation(@PathParam(value = "id") Long colocId, @PathParam(value = "userID")  Long userId) throws ResourceNotFoundException {
+	@DeleteMapping(value = "/api/colocs/{id}/members/{userID}", produces = "application/json")
+	public List<Person> deleteUserFromColocation(@PathVariable(value = "id") Long colocId, @PathVariable(value = "userID")  Long userId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 
