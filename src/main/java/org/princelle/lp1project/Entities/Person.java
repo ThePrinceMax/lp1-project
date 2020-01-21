@@ -1,8 +1,6 @@
 package org.princelle.lp1project.Entities;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "table_users")
@@ -24,6 +22,9 @@ public class Person {
 	@Column(name = "password", nullable = false)
 	private String password;
 
+	@Column(name = "pseudo", nullable = false)
+	private String pseudo;
+
 	@Column(name = "score", nullable = false)
 	private Integer score = 0;
 
@@ -40,6 +41,14 @@ public class Person {
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
 
 	public String getPassword() {
