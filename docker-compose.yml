@@ -1,23 +1,24 @@
 version: '3'
 
 services:
-  lp1-phpmyadmin:
+  phpmyadmin:
     container_name: lp1-phpmyadmin
     image: phpmyadmin/phpmyadmin
     depends_on:
       - lp1-mysql
-    environment:
-      PMA_HOST: localhost
-      PMA_PORT: 3306
+    links:
+      - db:db
     ports:
       - "8084:80"
     env_file:
       - .env
     restart: unless-stopped
 
-  lp1-mysql:
+  db:
     container_name: lp1-mysql
     image: mysql:5.7
+    links:
+      - db
     env_file:
       - .env
     volumes:
@@ -26,11 +27,13 @@ services:
       - "3309:3306"
     restart: unless-stopped
 
-  lp1-app:
+  app:
     container_name: lp1-app
     restart: unless-stopped
     image: maven:3-jdk-8-openj9
     working_dir: /app
+    links:
+      - db:db
     volumes:
       - .:/app
       - ~/.m2:/root/.m2
