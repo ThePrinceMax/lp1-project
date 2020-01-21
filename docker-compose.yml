@@ -18,24 +18,12 @@ services:
 
   db:
     container_name: lp1-mysql
-    image: mysql:5.7
-    command: '--default-authentication-plugin=mysql_native_password'
+    image: mysql
     env_file:
       - .env
     volumes:
       - "./db/mysql:/var/lib/mysql"
     restart: unless-stopped
-
-  db:
-    image: 'mysql'
-    environment:
-      - MYSQL_DATABASE=matomo
-      - MYSQL_USER=matomo
-      - MYSQL_PASSWORD=matomo_db_pass
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
-    volumes:
-      - '/app/analytics/db:/var/lib/mysql'
 
   app:
     container_name: lp1-app
