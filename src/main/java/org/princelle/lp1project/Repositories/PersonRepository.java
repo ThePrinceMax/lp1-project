@@ -12,4 +12,10 @@ public interface PersonRepository extends JpaRepository<Person, Long>{
 	List<Person> findByColocId(Long colocId);
 
 	List<Person> findByColocIsNull();
+
+	Person findPersonByEmailId(String emailId);
+
+	Person findPersonByPseudo(String pseudo);
+
+	// boolean existsPersonByEmailId(String emailId);
 }
