@@ -57,8 +57,8 @@ public class PersonResource {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 
-		if (personDetails.getEmail() != null){
-			person.setEmail(personDetails.getEmail());
+		if (personDetails.getEmailId() != null){
+			person.setEmailId(personDetails.getEmailId());
 		}
 
 		if (personDetails.getFirstName() != null){
