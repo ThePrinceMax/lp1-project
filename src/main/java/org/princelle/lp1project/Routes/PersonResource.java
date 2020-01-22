@@ -14,44 +14,45 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")
 public class PersonResource {
 
 	@Autowired
 	private PersonRepository personRepository;
 
-	@GetMapping(value = "/api", produces = "application/json")
+	@GetMapping(value = "/", produces = "application/json")
 	public String hello() {
 		return "Hello ! Welcome on the API for the LP1 Project.";
 	}
 
-	@GetMapping(value = "/api/users", produces = "application/json")
+	@GetMapping(value = "/users", produces = "application/json")
 	public List<Person> getAllUsers() {
 		return personRepository.findAll();
 	}
 
-	@GetMapping(value = "/api/users/{id}", produces = "application/json")
+	@GetMapping(value = "/users/{id}", produces = "application/json")
 	public Person getUserById(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 		return person;
 	}
 
-	@GetMapping(value = "/api/users/pseudo/{pseudo}", produces = "application/json")
+	@GetMapping(value = "/users/pseudo/{pseudo}", produces = "application/json")
 	public Person getUserByPseudo(@PathVariable(value = "pseudo") String pseudo) {
 		return personRepository.findPersonByPseudo(pseudo);
 	}
 
-	@GetMapping(value = "/api/users/nocoloc", produces = "application/json")
+	@GetMapping(value = "/users/nocoloc", produces = "application/json")
 	public List<Person> getPersonWithNoColoc() {
 		return personRepository.findByColocIsNull();
 	}
 
-	@PostMapping(value = "/api/signup", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
 	public Person createUser(@Valid @RequestBody Person person) {
 		return personRepository.save(person);
 	}
 
-	@GetMapping(value = "/api/users/{id}", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/users/{id}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Person> updateUser(@PathVariable(value = "id") Long userId,
 											 @Valid @RequestBody Person personDetails) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
@@ -81,7 +82,7 @@ public class PersonResource {
 		return ResponseEntity.ok(personEdited);
 	}
 
-	@DeleteMapping(value = "/api/users/{id}", produces = "application/json")
+	@DeleteMapping(value = "/users/{id}", produces = "application/json")
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));

@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")
 public class ColocationResource {
 
 	@Autowired
@@ -24,24 +25,24 @@ public class ColocationResource {
 	@Autowired
 	private PersonRepository personRepository;
 
-	@GetMapping(value = "/api/colocs", produces = "application/json")
+	@GetMapping(value = "/colocs", produces = "application/json")
 	public List<Colocation> getAllColcations() {
 		return colocRepository.findAll();
 	}
 
-	@GetMapping(value = "/api/colocs/{id}", produces = "application/json")
+	@GetMapping(value = "/colocs/{id}", produces = "application/json")
 	public Colocation getColocationById(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 		return coloc;
 	}
 
-	@PostMapping(value = "/api/colocs", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "/colocs", produces = "application/json", consumes = "application/json")
 	public Colocation createColocation(@Valid @RequestBody Colocation coloc) {
 		return colocRepository.save(coloc);
 	}
 
-	@PostMapping(value = "/api/colocs/{id}/members/{userID}", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "/colocs/{id}/members/{userID}", produces = "application/json", consumes = "application/json")
 	public List<Person> addUsertoColocation(@PathVariable(value = "id") Long colocId, @PathVariable(value = "userID") Long userID) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -55,7 +56,7 @@ public class ColocationResource {
 		return users;
 	}
 
-	@GetMapping(value = "/api/colocs/{id}/members", produces = "application/json")
+	@GetMapping(value = "/colocs/{id}/members", produces = "application/json")
 	public List<Person> getMembersByColocationID(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -63,7 +64,7 @@ public class ColocationResource {
 		return users;
 	}
 
-	@PutMapping(value = "/api/colocs/{id}", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/colocs/{id}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Colocation> updateColocation(@PathVariable(value = "id") Long colocId,
 										   @Valid @RequestBody Colocation colocDetails) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
@@ -77,7 +78,7 @@ public class ColocationResource {
 		return ResponseEntity.ok(colocEdited);
 	}
 
-	@DeleteMapping(value = "/api/colocs/{id}", produces = "application/json")
+	@DeleteMapping(value = "/colocs/{id}", produces = "application/json")
 	public Map<String, Boolean> deleteColocation(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
 		Colocation user = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -88,7 +89,7 @@ public class ColocationResource {
 		return response;
 	}
 
-	@DeleteMapping(value = "/api/colocs/{id}/members/{userID}", produces = "application/json")
+	@DeleteMapping(value = "/colocs/{id}/members/{userID}", produces = "application/json")
 	public List<Person> deleteUserFromColocation(@PathVariable(value = "id") Long colocId, @PathVariable(value = "userID")  Long userId) throws ResourceNotFoundException {
 		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));

@@ -20,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")
 public class TaskResource {
 
 	@Autowired
@@ -31,19 +32,19 @@ public class TaskResource {
 	@Autowired
 	private PersonRepository personRepository;
 
-	@GetMapping(value = "/api/tasks", produces = "application/json")
+	@GetMapping(value = "/tasks", produces = "application/json")
 	public List<Task> getAllTasks() {
 		return taskRepository.findAll();
 	}
 
-	@GetMapping(value = "/api/tasks/{id}", produces = "application/json")
+	@GetMapping(value = "/tasks/{id}", produces = "application/json")
 	public Task getTaskById(@PathVariable(value = "id") Long task_id) throws ResourceNotFoundException {
 		Task task = taskRepository.findById(task_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + task_id));
 		return task;
 	}
 
-	@GetMapping(value = "/api/tasks/coloc/{colocId}", produces = "application/json")
+	@GetMapping(value = "/tasks/coloc/{colocId}", produces = "application/json")
 	public List<Task> getAllTasksbyColoc(@PathVariable(value = "colocId") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocationRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -51,12 +52,12 @@ public class TaskResource {
 		return taskRepository.findAllByColoc(coloc);
 	}
 
-	@GetMapping(value = "/api/tasks/not_attributed", produces = "application/json")
+	@GetMapping(value = "/tasks/not_attributed", produces = "application/json")
 	public List<Task> getAllTasksNotAttributed() {
 		return taskRepository.findTasksByToPersonIsNull();
 	}
 
-	@GetMapping(value = "/api/tasks/coloc/{colocId}/not_attributed", produces = "application/json")
+	@GetMapping(value = "/tasks/coloc/{colocId}/not_attributed", produces = "application/json")
 	public List<Task> getAllTasksNotAttributedbyColoc(@PathVariable(value = "colocId") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocationRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -64,12 +65,12 @@ public class TaskResource {
 		return taskRepository.findTasksByColocAndToPersonIsNull(coloc);
 	}
 
-	@GetMapping(value = "/api/tasks/pending", produces = "application/json")
+	@GetMapping(value = "/tasks/pending", produces = "application/json")
 	public List<Task> getAllPendingTasks() {
 		return taskRepository.findTasksByFinishDateIsNull();
 	}
 
-	@GetMapping(value = "/api/tasks/coloc/{colocId}/pending", produces = "application/json")
+	@GetMapping(value = "/tasks/coloc/{colocId}/pending", produces = "application/json")
 	public List<Task> getAllPendingTasksByColoc(@PathVariable(value = "colocId") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocationRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -77,12 +78,12 @@ public class TaskResource {
 		return taskRepository.findTasksByColocAndFinishDateIsNull(coloc);
 	}
 
-	@GetMapping(value = "/api/tasks/proposed", produces = "application/json")
+	@GetMapping(value = "/tasks/proposed", produces = "application/json")
 	public List<Task> getAllProposedTasks() {
 		return taskRepository.findTasksByProposedIsTrue();
 	}
 
-	@GetMapping(value = "/api/tasks/coloc/{colocId}/proposed", produces = "application/json")
+	@GetMapping(value = "/tasks/coloc/{colocId}/proposed", produces = "application/json")
 	public List<Task> getAllProposedTasksByColoc(@PathVariable(value = "colocId") Long colocId) throws ResourceNotFoundException {
 		Colocation coloc = colocationRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
@@ -90,7 +91,7 @@ public class TaskResource {
 		return taskRepository.findTasksByProposedIsTrueAndColoc(coloc);
 	}
 
-	@GetMapping(value = "/api/tasks/users/to/{userId}/proposed", produces = "application/json")
+	@GetMapping(value = "/tasks/users/to/{userId}/proposed", produces = "application/json")
 	public List<Task> getAllProposedTasksToUser(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException {
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Person not found :: " + userId));
@@ -98,7 +99,7 @@ public class TaskResource {
 		return taskRepository.findTasksByProposedIsTrueAndToPerson(user);
 	}
 
-	@GetMapping(value = "/api/tasks/users/to/{userId}/pending", produces = "application/json")
+	@GetMapping(value = "/tasks/users/to/{userId}/pending", produces = "application/json")
 	public List<Task> getAllPendingTasksToUser(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException {
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Person not found :: " + userId));
@@ -106,7 +107,7 @@ public class TaskResource {
 		return taskRepository.findTasksByToPersonAndFinishDateIsNull(user);
 	}
 
-	@GetMapping(value = "/api/tasks/users/to/{userId}", produces = "application/json")
+	@GetMapping(value = "/tasks/users/to/{userId}", produces = "application/json")
 	public List<Task> getAllTasksToUser(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException {
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Person not found :: " + userId));
@@ -114,7 +115,7 @@ public class TaskResource {
 		return taskRepository.findAllByToPerson(user);
 	}
 
-	@GetMapping(value = "/api/tasks/users/from/{userId}/proposed", produces = "application/json")
+	@GetMapping(value = "/tasks/users/from/{userId}/proposed", produces = "application/json")
 	public List<Task> getAllProposedTasksFromUser(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException {
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Person not found :: " + userId));
@@ -122,7 +123,7 @@ public class TaskResource {
 		return taskRepository.findTasksByProposedIsTrueAndFromPerson(user);
 	}
 
-	@GetMapping(value = "/api/tasks/users/from/{userId}/pending", produces = "application/json")
+	@GetMapping(value = "/tasks/users/from/{userId}/pending", produces = "application/json")
 	public List<Task> getAllPendingTasksFromUser(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException {
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Person not found :: " + userId));
@@ -130,7 +131,7 @@ public class TaskResource {
 		return taskRepository.findTasksByFromPersonAndFinishDateIsNull(user);
 	}
 
-	@GetMapping(value = "/api/tasks/users/from/{userId}", produces = "application/json")
+	@GetMapping(value = "/tasks/users/from/{userId}", produces = "application/json")
 	public List<Task> getAllTasksFromUser(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException {
 		Person user = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Person not found :: " + userId));
@@ -138,12 +139,12 @@ public class TaskResource {
 		return taskRepository.findAllByFromPerson(user);
 	}
 
-	@PostMapping(value = "/api/tasks", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "/tasks", produces = "application/json", consumes = "application/json")
 	public Task createTask(@Valid @RequestBody Task service) {
 		return taskRepository.save(service);
 	}
 
-	@PutMapping(value = "/api/tasks/{id}", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/tasks/{id}", produces = "application/json", consumes = "application/json")
 	public Task updateTask(@PathVariable(value = "id") Long taskId,
 											 @Valid @RequestBody Task taskDetails) throws ResourceNotFoundException {
 		Task task = taskRepository.findById(taskId)
@@ -180,7 +181,7 @@ public class TaskResource {
 		return taskRepository.save(task);
 	}
 
-	@PutMapping(value = "/api/tasks/{id}/valid/to", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/tasks/{id}/valid/to", produces = "application/json", consumes = "application/json")
 	public Task validTo(@PathVariable(value = "id") Long taskId) throws ResourceNotFoundException {
 		Task service = taskRepository.findById(taskId)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
@@ -195,7 +196,7 @@ public class TaskResource {
 		return taskRepository.save(service);
 	}
 
-	@PutMapping(value = "/api/tasks/{id}/valid/from", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/tasks/{id}/valid/from", produces = "application/json", consumes = "application/json")
 	public Task validFrom(@PathVariable(value = "id") Long taskId) throws ResourceNotFoundException {
 		Task service = taskRepository.findById(taskId)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
@@ -217,7 +218,7 @@ public class TaskResource {
 		return taskRepository.save(service);
 	}
 
-	@PutMapping(value = "/api/tasks/{id}/valid/to/rev", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/tasks/{id}/valid/to/rev", produces = "application/json", consumes = "application/json")
 	public Task validToRev(@PathVariable(value = "id") Long taskId) throws ResourceNotFoundException {
 		Task service = taskRepository.findById(taskId)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
@@ -233,7 +234,7 @@ public class TaskResource {
 		return taskRepository.save(service);
 	}
 
-	@PutMapping(value = "/api/tasks/{id}/valid/from/rev", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/tasks/{id}/valid/from/rev", produces = "application/json", consumes = "application/json")
 	public Task validFromRev(@PathVariable(value = "id") Long taskId) throws ResourceNotFoundException {
 		Task service = taskRepository.findById(taskId)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
@@ -254,7 +255,7 @@ public class TaskResource {
 		return taskRepository.save(service);
 	}
 
-	@DeleteMapping(value="/api/tasks/{id}", produces = "application/json")
+	@DeleteMapping(value="/tasks/{id}", produces = "application/json")
 	public Map<String, Boolean> deleteTask(@PathVariable(value = "id") Long taskId) throws ResourceNotFoundException {
 		Task task = taskRepository.findById(taskId)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
@@ -273,7 +274,7 @@ public class TaskResource {
 		return response;
 	}
 
-	@PostMapping(value = "/api/tasks/{id}/uploadImage", produces = "application/json")
+	@PostMapping(value = "/tasks/{id}/uploadImage", produces = "application/json")
 	public Task uploadImage(@PathVariable(value = "id") Long taskId, @RequestParam("file") MultipartFile file) throws ResourceNotFoundException {
 		Task task = taskRepository.findById(taskId)
 				.orElseThrow(() -> new ResourceNotFoundException("Task not found :: " + taskId));
