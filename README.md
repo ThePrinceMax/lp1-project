@@ -20,7 +20,7 @@ __Projet encore en cours de développement...__
 
 L'API est accessible via ce lien : 
 
-[https://lp1.princelle.org/api](https://lp1.princelle.org/api)
+[https://lp1-api-jwt.princelle.org/api](https://lp1-api-jwt.princelle.org/api)
 
 Pour plus d'informations sur les routes, je vous invite à vous rendre <a href="#routes">ici</a>.
 
@@ -157,7 +157,7 @@ Afin de lancer l'environnement, exécutez la commande suivante :
 
 Une fois fait, l'API sera déployée à l'adresse : 
 
-[http://localhost:8080/api/](http://localhost:8080/api/)
+[http://localhost:8085/api/](http://localhost:8085/api/)
 
 ```/api``` correspond à la route sur laquelle l'API est publiée.
 
@@ -167,7 +167,7 @@ Pour voir toutes les routes de l'application, <a href="#routes">cliquez-ici</a>.
 
 Pour accéder à phpMyAdmin, ce dernier se trouve sur le port 8084, vous pouvez y accédez via le lien suivant : 
 
-[http://localhost:8084/](http://localhost:8084/)
+[http://localhost:8086/](http://localhost:8086/)
 
 ## Routes
 
@@ -175,16 +175,21 @@ Comme dit précédemment, ```/api``` correspond à la route sur laquelle l'API e
 
 Voici l'arborescence de l'application : 
 
-- GET ```/``` : Hello World !
+NB : Les seules routes qui sont ouvertes sont : ```/login```, ```/signup``` et ```/```. Les autres routes nécessitent le passage d'un token (valable 10 jours après génération) via "Bearer" inséré dans "Header" avant chaque requête.
 
-- Users
-  - GET ```/users``` : Liste tous les utilisateurs et leurs informations.
 
-  - GET ```/users/{id}``` : Affiche les informations d'un utilisateur en fonction de son ID.
-
-  - GET ```/users/pseudo/{pseudo}``` : Affiche les informations d'un utilisateur en fonction de son Pseudo.
-
-  - GET ```/users/nocoloc``` : Affiche les utilisateurs qui n'ont pas de Colocation.
+- Auth
+  - POST ```/login``` : Connexion
+	<br/>__Réponse__ (JSON) : Renvoie le token pour une Authentification via Headers.
+  	<br/>__Requête__ (JSON) : Attends les paramètres suivants :
+	<br/>Ici, on a le choix, soit on utilise ```emailId```, soit ```pseudo```, dans tous les cas, l'un des deux ainsi que le mot de passe sont obligatoires.
+	```json
+	{
+		"emailId": "contact@princelle.org",
+		"pseudo": "ThePrince",
+		"password": "test1",
+	}
+	```
 
   - POST ```/signup``` : Ajoute un utilisateur. 
   	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur ajouté.
@@ -198,6 +203,17 @@ Voici l'arborescence de l'application :
 		"pseudo": "ThePrince" //Obligatoire, et unique.
 	}
 	```
+
+- GET ```/``` : Hello World !
+
+- Users
+  - GET ```/users``` : Liste tous les utilisateurs et leurs informations.
+
+  - GET ```/users/{id}``` : Affiche les informations d'un utilisateur en fonction de son ID.
+
+  - GET ```/users/pseudo/{pseudo}``` : Affiche les informations d'un utilisateur en fonction de son Pseudo.
+
+  - GET ```/users/nocoloc``` : Affiche les utilisateurs qui n'ont pas de Colocation.
 
   - PUT ```/users/{id}``` : Modifie les informations d'un utilisateur en fonction de son ID.
 	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur modifié.
@@ -390,7 +406,7 @@ Ce projet Maven est basé sur :
 - Apache Tomcat
 - Spring
 - JPA / Hibernate avec MySQL Connector
-- Jersey
+- JWT
 
 ----
 
