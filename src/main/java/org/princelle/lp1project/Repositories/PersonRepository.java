@@ -17,5 +17,6 @@ public interface PersonRepository extends JpaRepository<Person, Long>{
 
 	Person findPersonByPseudo(String pseudo);
 
-	// boolean existsPersonByEmailId(String emailId);
+	boolean existsPersonByEmailId(String emailId);
+	boolean existsPersonByPseudo(String pseudo);
 }

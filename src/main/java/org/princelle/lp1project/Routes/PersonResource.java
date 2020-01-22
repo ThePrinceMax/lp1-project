@@ -1,6 +1,7 @@
 package org.princelle.lp1project.Routes;
 
 import org.princelle.lp1project.Entities.Person;
+import org.princelle.lp1project.Exceptions.AlreadyExistsException;
 import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.princelle.lp1project.Repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,13 @@ public class PersonResource {
 	}
 
 	@PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
-	public Person createUser(@Valid @RequestBody Person person) {
+	public Person createUser(@Valid @RequestBody Person person) throws AlreadyExistsException {
+		if (personRepository.existsPersonByEmailId(person.getEmailId())) {
+			throw new AlreadyExistsException("Person with emailId :: " + person.getEmailId() + " already exists.");
+		}
+		if (personRepository.existsPersonByPseudo(person.getPseudo())) {
+			throw new AlreadyExistsException("Person with pseudo :: " + person.getPseudo() + " already exists.");
+		}
 		return personRepository.save(person);
 	}
 
