@@ -6,6 +6,7 @@ import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.princelle.lp1project.Repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,6 +21,14 @@ public class PersonResource {
 
 	@Autowired
 	private PersonRepository personRepository;
+
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	public PersonResource(PersonRepository applicationUserRepository,
+						  BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.personRepository = applicationUserRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 
 	@GetMapping(value = "/", produces = "application/json")
 	public String hello() {
@@ -50,6 +59,7 @@ public class PersonResource {
 
 	@PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
 	public Person createUser(@Valid @RequestBody Person person) throws AlreadyExistsException {
+		person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
 		if (personRepository.existsPersonByEmailId(person.getEmailId())) {
 			throw new AlreadyExistsException("Person with emailId :: " + person.getEmailId() + " already exists.");
 		}
