@@ -59,7 +59,7 @@ public class PersonResource {
 		return personRepository.save(person);
 	}
 
-	@GetMapping(value = "/users/{id}", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/users/{id}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Person> updateUser(@PathVariable(value = "id") Long userId,
 											 @Valid @RequestBody Person personDetails) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
