@@ -85,6 +85,10 @@ public class PersonResource {
 			person.setPseudo(personDetails.getPseudo());
 		}
 
+		if (personDetails.getPassword() != null){
+			person.setPassword(personDetails.getPassword());
+		}
+
 		final Person personEdited = personRepository.save(person);
 		return ResponseEntity.ok(personEdited);
 	}
