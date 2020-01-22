@@ -1,6 +1,6 @@
 # LP1 Project - API
 
-Oui, vous avez bien lu. Une simple API, en Java. (Version béta)
+Oui, vous avez bien lu. Une simple API, en Java.
 
 Créé par : [Maxime Princelle](https://princelle.org)
 
@@ -15,8 +15,6 @@ __Sommaire__
 - <a href="#technologies-utilis%C3%A9es">Technologies utilisées</a>
 
 ## Comment y accéder ?
-
-__Projet encore en cours de développement...__
 
 L'API est accessible via ce lien : 
 
