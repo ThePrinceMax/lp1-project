@@ -196,9 +196,9 @@ NB : Les seules routes qui sont ouvertes sont : ```/login```, ```/signup``` et `
 	{
 		"firstName": "Maxime", //Obligatoire
 		"lastName": "Princelle", //Obligatoire
-		"emailId": "contact@princelle.org", //Obligatoire, et unique
+		"emailId": "contact@princelle.org", //Obligatoire et unique
 		"password": "test1", //Obligatoire
-		"pseudo": "ThePrince" //Obligatoire, et unique.
+		"pseudo": "ThePrince" //Obligatoire et unique.
 	}
 	```
 
