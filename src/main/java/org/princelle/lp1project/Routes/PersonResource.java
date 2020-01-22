@@ -5,75 +5,55 @@ import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.princelle.lp1project.Repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.ws.rs.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
-@Path("/api")
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/api")
 public class PersonResource {
 
 	@Autowired
 	private PersonRepository personRepository;
 
-	@GET
-	@Produces("application/json")
-	@Path("/")
+	@GetMapping(value = "/", produces = "application/json")
 	public String hello() {
 		return "Hello ! Welcome on the API for the LP1 Project.";
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/users")
+	@GetMapping(value = "/users", produces = "application/json")
 	public List<Person> getAllUsers() {
 		return personRepository.findAll();
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/users/{id}")
-	public Person getUserById(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
+	@GetMapping(value = "/users/{id}", produces = "application/json")
+	public Person getUserById(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 		return person;
 	}
 
-	@GET
-	@Produces("application/json")
-	@Path("/users/pseudo/{pseudo}")
-	public Person getUserByPseudo(@PathParam(value = "pseudo") String pseudo) {
+	@GetMapping(value = "/users/pseudo/{pseudo}", produces = "application/json")
+	public Person getUserByPseudo(@PathVariable(value = "pseudo") String pseudo) {
 		return personRepository.findPersonByPseudo(pseudo);
 	}
 
-	@GET
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/users/nocoloc")
+	@GetMapping(value = "/users/nocoloc", produces = "application/json")
 	public List<Person> getPersonWithNoColoc() {
 		return personRepository.findByColocIsNull();
 	}
 
-	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	@PostMapping("/signup")
-	@Path("/signup")
-	public Person createUser(Person person) {
+	@PostMapping(value = "/signup", produces = "application/json", consumes = "application/json")
+	public Person createUser(@Valid @RequestBody Person person) {
 		return personRepository.save(person);
 	}
 
-	@PUT
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("/users/{id}")
-	public ResponseEntity<Person> updateUser(@PathParam(value = "id") Long userId,
+	@GetMapping(value = "/users/{id}", produces = "application/json", consumes = "application/json")
+	public ResponseEntity<Person> updateUser(@PathVariable(value = "id") Long userId,
 											 @Valid @RequestBody Person personDetails) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
@@ -102,10 +82,8 @@ public class PersonResource {
 		return ResponseEntity.ok(personEdited);
 	}
 
-	@DELETE
-	@Produces("application/json")
-	@Path("/users/{id}")
-	public Map<String, Boolean> deleteUser(@PathParam(value = "id") Long userId) throws ResourceNotFoundException {
+	@DeleteMapping(value = "/users/{id}", produces = "application/json")
+	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 
