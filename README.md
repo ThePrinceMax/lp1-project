@@ -20,7 +20,7 @@ __Projet encore en cours de développement...__
 
 L'API est accessible via ce lien : 
 
-[https://lp1.princelle.org/api](https://lp1.princelle.org/api)
+[https://lp1.princelle.org/api/](https://lp1.princelle.org/api/)
 
 Pour plus d'informations sur les routes, je vous invite à vous rendre <a href="#routes">ici</a>.
 
