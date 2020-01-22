@@ -40,7 +40,7 @@ public class PersonResource {
 
 	@GetMapping(value = "/users/pseudo/{pseudo}", produces = "application/json")
 	public Person getUserByPseudo(@PathVariable(value = "pseudo") String pseudo) throws ResourceNotFoundException  {
-		if (personRepository.existsPersonByPseudo(pseudo)) {
+		if (!personRepository.existsPersonByPseudo(pseudo)) {
 			throw new ResourceNotFoundException("User not found w/ pseudo :: " + pseudo);
 		}
 
