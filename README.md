@@ -175,20 +175,30 @@ Comme dit précédemment, ```/api``` correspond à la route sur laquelle l'API e
 
 Voici l'arborescence de l'application : 
 
+- GET ```/``` : Hello World !
+
 - Users
   - GET ```/users``` : Liste tous les utilisateurs et leurs informations.
+
   - GET ```/users/{id}``` : Affiche les informations d'un utilisateur en fonction de son ID.
-  - POST ```/users``` : Ajoute un utilisateur. 
+
+  - GET ```/users/pseudo/{pseudo}``` : Affiche les informations d'un utilisateur en fonction de son Pseudo.
+
+  - GET ```/users/nocoloc``` : Affiche les utilisateurs qui n'ont pas de Colocation.
+
+  - POST ```/signup``` : Ajoute un utilisateur. 
   	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur ajouté.
   	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
 	```json
 	{
 		"firstName": "Maxime", //Obligatoire
 		"lastName": "Princelle", //Obligatoire
-		"emailId": "contact@princelle.org", //Obligatoire
-		"password": "test1" //Obligatoire
+		"emailId": "contact@princelle.org", //Obligatoire, et unique
+		"password": "test1", //Obligatoire
+		"pseudo": "ThePrince" //Obligatoire, et unique.
 	}
 	```
+
   - PUT ```/users/{id}``` : Modifie les informations d'un utilisateur en fonction de son ID.
 	<br/>__Réponse__ (JSON) : Renvoie l'utilisateur modifié.
   	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
@@ -197,9 +207,11 @@ Voici l'arborescence de l'application :
 		"firstName": "Maxime", //Optionnel
 		"lastName": "Princelle", //Optionnel
 		"emailId": "contact-maxime@princelle.org", //Optionnel
-		"password": "test2" //Optionnel
+		"password": "test2", //Optionnel
+		"pseudo": "TheKing" //Optionnel
 	}
 	```
+
   - DELETE ```/users/{id}``` : Supprime un utilisateur en fonction de son ID. 
   	<br/>__Réponse__ (JSON) : Renvoie un boolean confirmant sa suppression.
 	```json
@@ -210,7 +222,11 @@ Voici l'arborescence de l'application :
 
 - Colocations
   - GET ```/colocs``` : Liste toutes les colocations et leurs informations.
+
   - GET ```/colocs/{id}``` : Affiche les informations d'une colocation en fonction de son ID.
+
+  - GET ```/colocs/{id}/members``` : Affiche les membres d'une colocation en fonction de son ID.
+
   - POST ```/colocs``` : Ajoute une colocation. 
   	<br/>__Réponse__ (JSON) : Renvoie la colocation ajoutée.
   	<br/>__Requête__ (JSON) : Attends les paramètres suivants (non optionnels) :
@@ -219,6 +235,12 @@ Voici l'arborescence de l'application :
 		"name": "L'équipeDe@W.", //Obligatoire
 	}
 	```
+
+  - POST ```/colocs/{id}/members/{userID}``` : 
+  		Ajoute l'utilisateur avec son ID (```userID```) (si il existe) 
+		à la Colocation déterminée elle aussi par son ID.
+	<br/>__Réponse__ (JSON) : Renvoie la liste des membres de la Colocation.
+
   - PUT ```/colocs/{id}``` : Modifie les informations d'une colocation en fonction de son ID.
 	<br/>__Réponse__ (JSON) : Renvoie la colocation modifiée.
   	<br/>__Requête__ (JSON) : Attends un ou plusieurs des paramètres suivants :
@@ -227,6 +249,12 @@ Voici l'arborescence de l'application :
 		"name": "L'équipeDe@H.", //Optionnel
 	}
 	```
+
+  - DELETE ```/colocs/{id}/members/{userID}``` : 
+  		Retire l'utilisateur de la Colocation déterminé par son ID
+		avec l'ID de l'Utilisateur (```userID```) (si il existe et s'il est bien membre).
+	<br/>__Réponse__ (JSON) : Renvoie la liste des membres de la Colocation.
+
   - DELETE ```/colocs/{id}``` : Supprime une colocation en fonction de son ID. 
   	<br/>__Réponse__ (JSON) : Renvoie un boolean confirmant sa suppression.
 	```json
@@ -234,6 +262,127 @@ Voici l'arborescence de l'application :
     	"deleted": true
 	}
 	```
+
+- Tasks
+  - GET ```/tasks``` : Liste toutes les taches et leurs informations.
+
+  - GET ```/tasks/{id}``` : Affiche les informations d'une tache en fonction de son ID.
+
+  - GET ```/tasks/coloc/{colocId}``` : 
+  		<br/>Affiche les taches liées à une Colocation (déterminée par son ID).
+
+  - GET ```/tasks/not_attributed``` : Affiche les taches non attribuées.
+
+  - GET ```/tasks/coloc/{colocId}/not_attributed``` : 
+  		<br/>Affiche les taches non attribuées liées à une Colocation (déterminée par ```colocId```). 
+
+  - GET ```/tasks/pending``` : Affiche les taches en attente.
+
+  - GET ```/tasks/coloc/{colocId}/pending``` : 
+  		<br/>Affiche les taches en attente liées à une Colocation (déterminée par ```colocId```). 
+
+  - GET ```/tasks/users/to/{userId}/pending``` : 
+  		<br/>Affiche les taches en attente, liées à un 'User' (déterminé par ```userId```). 
+
+  - GET ```/tasks/users/from/{userId}/pending``` : 
+  		<br/>Affiche les taches en attente, déposées par un 'User' (déterminé par ```userId```). 
+
+  - GET ```/tasks/proposed``` : Affiche les taches proposées.
+
+  - GET ```/tasks/coloc/{colocId}/proposed``` : 
+  		<br/>Affiche les taches proposées liées à une Colocation (déterminée par ```colocId```). 
+
+  - GET ```/tasks/users/to/{userId}/proposed``` : 
+  		<br/>Affiche les taches proposées à un 'User' (déterminé par ```userId```). 
+
+  - GET ```/tasks/users/from/{userId}/proposed``` : 
+  		<br/>Affiche les taches proposées par un 'User' (déterminé par ```userId```). 
+
+  - GET ```/tasks/users/to/{userId}``` : 
+  		<br/>Affiche les taches liées à un 'User' (déterminé par ```userId```). 
+
+  - GET ```/tasks/users/from/{userId}``` : 
+  		<br/>Affiche les taches créées par un 'User' (déterminé par ```userId```). 
+
+  - POST ```/tasks``` : Ajoute une tache. 
+  	<br/>__Réponse__ (JSON) : Renvoie la tache ajoutée.
+  	<br/>__Requête__ (JSON) : Attends les paramètres suivants :
+	```json
+	{
+		"title": "Faire des pâtes", //Obligatoire
+		"description": "Ne pas oublier l'eau...", //Obligatoire
+		"cost": 5, //Type: Entier //Obligatoire 
+		"proposed": false, //Type: Booléen //Obligatoire
+		"coloc": {
+			"id": 1
+		}, //Obligatoire
+		"fromPerson": {
+			"id": 1
+		},
+		"toPerson": {
+			"id": 2
+		}
+	}
+	```
+
+  - PUT ```/tasks/{id}``` : Modifie une tache, en fonction de son ID et de son état. 
+  	<br/>__Réponse__ (JSON) : Renvoie la tache modifiée.
+  	<br/>__Requête__ (JSON) : Attends les paramètres suivants (optionnels) :
+	```json
+	{
+		"title": "Faire du riz",
+		"description": "Parce que c'est la vie...",
+		"cost": 5, //Type: Entier 
+		"proposed": false, //Type: Booléen
+		"coloc": {
+			"id": 1
+		},
+		"fromPerson": {
+			"id": 1
+		},
+		"toPerson": {
+			"id": 2
+		},
+		"picture": "https://tenor.com/SXcQ.gif" //Type: URL directe vers Image
+	}
+	```
+
+	NB : Si la tache a déjà été effectué (présence d'une "finishDate"), seule l'image est modifiable. 
+
+  - PUT ```/tasks/{id}/valid/to``` : 
+  		<br/>Marque la tache comme validée du côté de la personne 
+		à qui elle l'a été attribuée.
+		<br/>Attribue également à la tache la date et l'heure du jour.
+  	<br/>__Réponse__ (JSON) : Renvoie la tache modifiée.
+
+  - PUT ```/tasks/{id}/valid/from``` : 
+  		<br/>Marque la tache comme validée du côté de la personne 
+		qui l'a attribuée.
+		<br/>Attribue également à l'utilisateur à qui la tache été dédié (s'il y en a un, et qu'il l'a validée avant de son côté), les points eux sont ajoutés automatiquement.
+  	<br/>__Réponse__ (JSON) : Renvoie la tache modifiée.
+
+  - PUT ```/tasks/{id}/valid/to/rev``` : 
+  		<br/>Annule le marquage de la tache comme validée du côté de la personne 
+		à qui elle l'a été attribuée.
+		<br/>Si la tâche a été validée par la personne qui l'a créée, il ne sera plus possible de faire cette requête
+  	<br/>__Réponse__ (JSON) : Renvoie la tache modifiée.
+
+  - PUT ```/tasks/{id}/valid/from/rev``` : 
+  		<br/>Annule le marquage de la tache comme validée du côté de la personne 
+		qui l'a attribuée.
+		<br/>Les points sont retirés automatiquement s'ils ont été attribués à un utilisateur. La date et le statut de la tache du côté de la personne a qui elle est attribuée, sont supprimés.
+  	<br/>__Réponse__ (JSON) : Renvoie la tache modifiée.
+
+  - DELETE ```/tasks/{id}``` : Supprime la tache en fonction de son ID. 
+	<br/>__Réponse__ (JSON) : Renvoie un boolean confirmant sa suppression.
+	```json
+	{
+    	"deleted": true
+	}
+	```
+
+	NB : Les points sont retirés automatiquement du score de l'utilisateur s'ils ont été attribués auparavant.
+
 
 ## Technologies utilisées
 
