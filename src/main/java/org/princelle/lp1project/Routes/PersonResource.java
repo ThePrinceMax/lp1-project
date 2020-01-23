@@ -1,9 +1,11 @@
 package org.princelle.lp1project.Routes;
 
 import org.princelle.lp1project.Entities.Person;
+import org.princelle.lp1project.Entities.Task;
 import org.princelle.lp1project.Exceptions.AlreadyExistsException;
 import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.princelle.lp1project.Repositories.PersonRepository;
+import org.princelle.lp1project.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ public class PersonResource {
 
 	@Autowired
 	private PersonRepository personRepository;
+
+	@Autowired
+	private TaskRepository taskRepository;
 
 	@GetMapping(value = "/", produces = "application/json")
 	public String hello() {
@@ -101,6 +106,16 @@ public class PersonResource {
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Person person = personRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
+
+		for (Task task: taskRepository.findAllByToPerson(person)) {
+			task.setToPerson(null);
+			taskRepository.save(task);
+		}
+
+		for (Task task: taskRepository.findAllByFromPerson(person)) {
+			task.setFromPerson(null);
+			taskRepository.save(task);
+		}
 
 		personRepository.delete(person);
 		Map<String, Boolean> response = new HashMap<>();

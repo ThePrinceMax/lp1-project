@@ -2,9 +2,11 @@ package org.princelle.lp1project.Routes;
 
 import org.princelle.lp1project.Entities.Colocation;
 import org.princelle.lp1project.Entities.Person;
+import org.princelle.lp1project.Entities.Task;
 import org.princelle.lp1project.Exceptions.ResourceNotFoundException;
 import org.princelle.lp1project.Repositories.ColocationRepository;
 import org.princelle.lp1project.Repositories.PersonRepository;
+import org.princelle.lp1project.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,9 @@ public class ColocationResource {
 
 	@Autowired
 	private PersonRepository personRepository;
+
+	@Autowired
+	private TaskRepository taskRepository;
 
 	@GetMapping(value = "/colocs", produces = "application/json")
 	public List<Colocation> getAllColcations() {
@@ -80,10 +85,20 @@ public class ColocationResource {
 
 	@DeleteMapping(value = "/colocs/{id}", produces = "application/json")
 	public Map<String, Boolean> deleteColocation(@PathVariable(value = "id") Long colocId) throws ResourceNotFoundException {
-		Colocation user = colocRepository.findById(colocId)
+		Colocation coloc = colocRepository.findById(colocId)
 				.orElseThrow(() -> new ResourceNotFoundException("Colocation not found :: " + colocId));
 
-		colocRepository.delete(user);
+		for (Task task: taskRepository.findAllByColoc(coloc)) {
+			task.setColoc(null);
+			taskRepository.save(task);
+		}
+
+		for (Person user: personRepository.findAllByColoc(coloc)) {
+			user.setColoc(null);
+			personRepository.save(user);
+		}
+
+		colocRepository.delete(coloc);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;

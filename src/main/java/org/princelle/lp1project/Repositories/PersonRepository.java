@@ -1,5 +1,6 @@
 package org.princelle.lp1project.Repositories;
 
+import org.princelle.lp1project.Entities.Colocation;
 import org.princelle.lp1project.Entities.Person;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,8 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long>{
 
 	List<Person> findByColocId(Long colocId);
+
+	List<Person> findAllByColoc(Colocation coloc);
 
 	List<Person> findByColocIsNull();
 
