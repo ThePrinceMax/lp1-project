@@ -31,7 +31,7 @@ public class PersonResource {
 
 	public PersonResource(PersonRepository applicationUserRepository,
 						  BCryptPasswordEncoder bCryptPasswordEncoder,
-							TaskRepository taskRepository) {
+						  TaskRepository taskRepository) {
 		this.personRepository = applicationUserRepository;
 		this.taskRepository = taskRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
